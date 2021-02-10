@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<object>
+    <param name="movie" value="https://www.youtube.com/watch?v=W14ooB3PtqY"></param>
+    <param name="wmode" value="transparent"></param>
+    <embed src="https://www.youtube.com/watch?v=W14ooB3PtqY" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object>
+
+<object>
+    <param name="movie" value="https://www.youtube.com/watch?v=Lo0Ks-0UUeY"></param>
+    <param name="wmode" value="transparent"></param>
+    <embed src="https://www.youtube.com/watch?v=Lo0Ks-0UUeY" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object>
+
+<!--<iframe id="ytplayer" type="text/html" width="640" height="360"-->
+<!--        src="https://www.youtube.com/embed/W14ooB3PtqY?autoplay=1&origin=http://example.com"-->
+<!--        frameborder="0"></iframe>-->
+
+<!--<div id="ytplayer"></div>-->
+
+<div id="ytplayer"></div>
+<script>
+    // Load the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Replace the 'ytplayer' element with an <iframe> and
+    // YouTube player after the API code downloads.
+    var player;
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('ytplayer', {
+            height: '360',
+            width: '640',
+            videoId: 'Lo0Ks-0UUeY'
+        });
+    }
+</script>
+
+<iframe width="100%" height="300" src="https://embeds.audioboom.com/posts/7518858/embed/v4" style="background-color:transparent; display:block; padding: 0; max-width:700px;" frameborder="0" allowtransparency="allowtransparency" scrolling="no" title="Audioboom player" allow="autoplay"></iframe>
+
+</body>
+</html>
