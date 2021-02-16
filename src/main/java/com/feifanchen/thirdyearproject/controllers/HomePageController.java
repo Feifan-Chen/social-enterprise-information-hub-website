@@ -11,7 +11,7 @@ public class HomePageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String welcome() {
-        return "/events/list";
+        return "/1";
     }
 
 }

@@ -74,6 +74,34 @@
         </tr>
         </tbody>
     </table>
+
+    <p style="color:Black; font-size: 25px">All Tedtalks</p>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th><i class="fas fa-map-marker-alt"></i> id </th>
+            <th><i class="fas fa-map"></i> name </th>
+            <th><i class="fas fa-map-marker-alt"></i> pic </th>
+            <th><i class="fas fa-map"></i> topics </th>
+            <th><i class="fas fa-map-marker-alt"></i> des </th>
+            <th><i class="fas fa-map"></i> url </th>
+            <th><i class="fas fa-map-marker-alt"></i> time </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="t : ${tedtalks}">
+            <td th:text="${{t.id}}">podcast ID</td>
+            <td th:text="${{t.title}}">podcast name</td>
+            <td th:text="${{t.thumbnail}}">podcast pic</td>
+            <td th:text="${{t.topic}}">podcast hashtag</td>
+            <td th:text="${{t.description}}">podcast description</td>
+            <td th:text="${{t.url}}">podcast url</td>
+            <td th:text="${{t.add_at}}">podcast time</td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 </body>
