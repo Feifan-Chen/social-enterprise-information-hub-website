@@ -1,5 +1,7 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.TypeAlias;
 
 import javax.persistence.Entity;
@@ -10,7 +12,9 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Tedtalk")
-public class Tedtalk {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class Tedtalk implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;

@@ -1,6 +1,8 @@
 package com.feifanchen.thirdyearproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Youtube")
-public class YouTube {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class YouTube implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;

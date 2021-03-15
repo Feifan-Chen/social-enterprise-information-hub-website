@@ -1,11 +1,16 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Forumcomment")
-public class ForumComment {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class ForumComment implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;

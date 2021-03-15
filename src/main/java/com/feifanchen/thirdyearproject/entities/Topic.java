@@ -1,6 +1,8 @@
 package com.feifanchen.thirdyearproject.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -15,7 +17,9 @@ import java.util.StringTokenizer;
 
 @Entity
 @Table(name = "Topic")
-public class Topic {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class Topic implements java.io.Serializable{
 
         @Id
         @GeneratedValue

@@ -1,5 +1,8 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -7,7 +10,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Forumpost")
-public class ForumPost {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class ForumPost implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;

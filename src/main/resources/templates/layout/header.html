@@ -62,6 +62,7 @@
     </div>
     <div sec:authorize="isAuthenticated()">
         <a class="u-login u-text-body-color u-login-1"  sec:authentication="name">Guest/Login</a>
+        <a class="u-login u-text-body-color u-login-1"  th:href="@{/logout}">Logout</a>
     </div>
     <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-3">
         <div class="menu-collapse">

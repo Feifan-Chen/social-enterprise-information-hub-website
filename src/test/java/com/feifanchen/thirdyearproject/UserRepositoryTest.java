@@ -27,7 +27,6 @@ public class UserRepositoryTest {
     public void testNewUser(){
         User user = new User();
         user.setUser_name("Feifan");
-        user.setAdmin(1);
         user.setPassword("123456");
 
         User savedUser = userRepository.save(user);

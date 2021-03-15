@@ -1,10 +1,17 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
-public class User {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class User implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
@@ -15,7 +22,14 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
-    private int admin;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Roles> roles = new HashSet<>();
 
     public User(){
     }
@@ -36,12 +50,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean checkAdmin(){
-        if(admin == 1)
-            return true;
-        else
-            return false;
+    public Set<Roles> getRoles() {
+        return roles;
     }
 
-    public void setAdmin(int i){ this.admin = i;}
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
 }

@@ -1,6 +1,8 @@
 package com.feifanchen.thirdyearproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -10,7 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Podcast")
-public class Podcast {
+@DynamicInsert(true)
+@DynamicUpdate(true)
+public class Podcast implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;
