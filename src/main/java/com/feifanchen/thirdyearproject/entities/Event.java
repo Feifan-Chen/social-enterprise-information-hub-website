@@ -1,11 +1,12 @@
 package com.feifanchen.thirdyearproject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Event")
@@ -16,7 +17,9 @@ public class Event {
 
     private String name;
 
-    private String topic;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "event", fetch=FetchType.EAGER)
+    private List<Topic> topic;
 
     private String description;
 
@@ -30,7 +33,7 @@ public class Event {
 
     private String url;
 
-    private Date date;
+    private LocalDate date;
 
     private Timestamp time;
 
@@ -50,11 +53,11 @@ public class Event {
 
     public void setName(String name){ this.name = name; }
 
-    public String getTopic(){
+    public List<Topic> getTopic(){
         return topic;
     }
 
-    public void setTopic(String topics){
+    public void setTopic(List<Topic> topics){
         this.topic = topics;
     }
 
@@ -102,9 +105,9 @@ public class Event {
         this.url = url;
     }
 
-    public Date getDate() {return date;}
+    public LocalDate getDate() {return date;}
 
-    public void setDate(Date date) {this.date = date;}
+    public void setDate(LocalDate date) {this.date = date;}
 
     public Timestamp getTime() {
         return time;
@@ -114,5 +117,11 @@ public class Event {
         this.time = timestamp;
     }
 
+    public boolean happenUpcoming() {
+        return date.isAfter(LocalDate.now());
+    }
 
+    public boolean happenToday() {
+        return date.isEqual(LocalDate.now());
+    }
 }

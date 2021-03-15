@@ -1,108 +1,64 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
-<head>
-    <title>Learning Resources</title>
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Video Resources</title>
 </head>
-<body>
-<div layout:fragment="content">
-    <form action = "#" th:action="@{/learningresources}" th:object = "${podcasts}" method = "get">
-        <div class="row">
-            <div class = "form-group col-md-4">
-                <h1><a href="/homepage">cff</a></h1>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-align-center u-clearfix u-section-2" id="carousel_e48c">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-custom-color-7 u-text-1">Find the best <b>Video Resources</b>
+        </h1>
+        <div id="carousel-1237" data-interval="5000" data-u-ride="carousel" class="u-carousel u-slider u-slider-1">
+            <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
+                <li data-u-target="#carousel-1237" class="u-active u-grey-30 u-shape-circle" data-u-slide-to="0" style="height: 10px; width: 10px;"></li>
+                <li data-u-target="#carousel-1237" class="u-grey-30 u-shape-circle" data-u-slide-to="1" style="height: 10px; width: 10px;"></li>
+                <li data-u-target="#carousel-1237" class="u-grey-30 u-shape-circle" data-u-slide-to="2" style="height: 10px; width: 10px;"></li>
+            </ol>
+            <div class="u-carousel-inner" role="listbox">
+                <div class="u-active u-carousel-item u-container-style u-image u-slide u-image-1" data-href="/learningresources/youtube/0">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                </div>
+                <div class="u-carousel-item u-container-style u-image u-slide u-image-2" data-href="/learningresources/podcast/0">
+                    <div class="u-container-layout u-container-layout-2"></div>
+                </div>
+                <div class="test-slide u-carousel-item u-container-style u-image u-slide u-image-3" data-image-width="1472" data-image-height="705" data-href="/learningresources/tedtalks">
+                    <div class="u-container-layout u-container-layout-3"></div>
+                </div>
             </div>
-            <div class = "form-group col-md-8">
-                <input type="text" placeholder="Search..." style="width: 600px; margin-top:15px;" name = "name" />
-                <button type="submit" class="btn btn-primary" style="margin-left:10px; margin-bottom:5px;"><i  aria-hidden="true"></i> Search</button>
-            </div>
+            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-icon-circle u-text-custom-color-7 u-carousel-control-1" href="#carousel-1237" role="button" data-u-slide="prev">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 477.175 477.175"><path d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225
+		c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z"></path></svg>
+            </span>
+                <span class="sr-only">
+              <svg viewBox="0 0 477.175 477.175"><path d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225
+		c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z"></path></svg>
+            </span>
+            </a>
+            <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-icon-circle u-text-custom-color-7 u-carousel-control-2" href="#carousel-1237" role="button" data-u-slide="next">
+            <span aria-hidden="true">
+              <svg viewBox="0 0 477.175 477.175"><path d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5
+		c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z"></path></svg>
+            </span>
+                <span class="sr-only">
+              <svg viewBox="0 0 477.175 477.175"><path d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5
+		c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z"></path></svg>
+            </span>
+            </a>
         </div>
-    </form>
+    </div>
+</section>
 
-    <br>
-    <p style="color:Black; font-size: 25px">All Podcasts</p>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th><i class="fas fa-map-marker-alt"></i> id </th>
-            <th><i class="fas fa-map"></i> name </th>
-            <th><i class="fas fa-map-marker-alt"></i> pic </th>
-            <th><i class="fas fa-map"></i> topics </th>
-            <th><i class="fas fa-map-marker-alt"></i> des </th>
-            <th><i class="fas fa-map"></i> url </th>
-            <th><i class="fas fa-map-marker-alt"></i> time </th>
-        </tr>
-        </thead>
+<style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
+    background-color: #4c7397 !important
+}</style>
 
-        <tbody>
-        <tr th:each="p : ${podcasts}">
-            <td th:text="${{p.id}}">podcast ID</td>
-            <td th:text="${{p.title}}">podcast name</td>
-            <td th:text="${{p.thumbnail}}">podcast pic</td>
-            <td th:text="${{p.topic}}">podcast hashtag</td>
-            <td th:text="${{p.description}}">podcast description</td>
-            <td th:text="${{p.url}}">podcast url</td>
-            <td th:text="${{p.time}}">podcast time</td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <p style="color:Black; font-size: 25px">All Youtubes</p>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th><i class="fas fa-map-marker-alt"></i> id </th>
-            <th><i class="fas fa-map"></i> name </th>
-            <th><i class="fas fa-map-marker-alt"></i> pic </th>
-            <th><i class="fas fa-map"></i> topics </th>
-            <th><i class="fas fa-map-marker-alt"></i> des </th>
-            <th><i class="fas fa-map"></i> url </th>
-            <th><i class="fas fa-map-marker-alt"></i> time </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="y : ${youTubes}">
-            <td th:text="${{y.id}}">podcast ID</td>
-            <td th:text="${{y.title}}">podcast name</td>
-            <td th:text="${{y.thumbnail}}">podcast pic</td>
-            <td th:text="${{y.topic}}">podcast hashtag</td>
-            <td th:text="${{y.description}}">podcast description</td>
-            <td th:text="${{y.url}}">podcast url</td>
-            <td th:text="${{y.time}}">podcast time</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <p style="color:Black; font-size: 25px">All Tedtalks</p>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th><i class="fas fa-map-marker-alt"></i> id </th>
-            <th><i class="fas fa-map"></i> name </th>
-            <th><i class="fas fa-map-marker-alt"></i> pic </th>
-            <th><i class="fas fa-map"></i> topics </th>
-            <th><i class="fas fa-map-marker-alt"></i> des </th>
-            <th><i class="fas fa-map"></i> url </th>
-            <th><i class="fas fa-map-marker-alt"></i> time </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="t : ${tedtalks}">
-            <td th:text="${{t.id}}">podcast ID</td>
-            <td th:text="${{t.title}}">podcast name</td>
-            <td th:text="${{t.thumbnail}}">podcast pic</td>
-            <td th:text="${{t.topic}}">podcast hashtag</td>
-            <td th:text="${{t.description}}">podcast description</td>
-            <td th:text="${{t.url}}">podcast url</td>
-            <td th:text="${{t.add_at}}">podcast time</td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
+<footer th:replace="layout/footer::foot"> </footer>
 </body>
 </html>

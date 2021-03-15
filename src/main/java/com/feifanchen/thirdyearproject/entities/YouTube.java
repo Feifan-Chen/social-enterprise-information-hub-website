@@ -1,10 +1,11 @@
 package com.feifanchen.thirdyearproject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "Youtube")
@@ -18,7 +19,9 @@ public class YouTube {
     private String thumbnail;
 
     //use string to represent the arraylist of topics (id) relates to this podcast
-    private String topic;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "youtube", fetch=FetchType.EAGER)
+    private List<Topic> topic;
 
     private String description;
 
@@ -28,7 +31,7 @@ public class YouTube {
 
     private long add_by;
 
-    private Timestamp time;
+    private Date time;
 
     public YouTube(){
 
@@ -56,11 +59,11 @@ public class YouTube {
         this.thumbnail = thumbnail;
     }
 
-    public String getTopic(){
+    public List<Topic> getTopic(){
         return topic;
     }
 
-    public void setTopic(String topics){
+    public void setTopic(List<Topic> topics){
         this.topic = topics;
     }
 
@@ -96,11 +99,11 @@ public class YouTube {
         this.add_at = timestamp;
     }
 
-    public Timestamp getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Timestamp timestamp) {
+    public void setTime(Date timestamp) {
         this.time = timestamp;
     }
 

@@ -1,7 +1,12 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
+
 
 @Entity
 @Table(name = "Podcast")
@@ -14,8 +19,10 @@ public class Podcast {
 
     private String thumbnail;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "podcast", fetch=FetchType.EAGER)
     //use string to represent the arraylist of topics (id) relates to this podcast
-    private String topic;
+    private List<Topic> topic;
 
     private String description;
 
@@ -25,7 +32,7 @@ public class Podcast {
 
     private long add_by;
 
-    private Timestamp time;
+    private Date time;
 
 
     public Podcast(){
@@ -54,11 +61,11 @@ public class Podcast {
         this.thumbnail = thumbnail;
     }
 
-    public String getTopic(){
+    public List<Topic> getTopic(){
         return topic;
     }
 
-    public void setTopic(String topics){
+    public void setTopic(List<Topic> topics){
         this.topic = topics;
     }
 
@@ -94,11 +101,11 @@ public class Podcast {
         this.add_at = timestamp;
     }
 
-    public Timestamp getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Timestamp timestamp) {
+    public void setTime(Date timestamp) {
         this.time = timestamp;
     }
 }

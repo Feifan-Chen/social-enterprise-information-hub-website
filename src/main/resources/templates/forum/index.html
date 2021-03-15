@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Forum</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-align-left u-clearfix u-white u-section-7" id="sec-ff6a">
+    <div class="u-container-style u-expanded-width u-group u-image u-image-1" data-image-width="1500" data-image-height="500">
+        <div class="u-container-layout u-container-layout-1">
+            <h1 class="u-text u-text-palette-5-dark-2 u-text-1" spellcheck="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORUM</h1>
+        </div>
+    </div>
+    <div class="u-list u-repeater u-list-1">
+        <div th:each="t : ${forumposts}">
+        <div class="u-container-style u-list-item u-repeater-item u-white u-list-item-1" data-href="/forum/{num}(num=${t.id})" th:attr="data-href='/forum/'+ ${{t.id}}">
+            <div class="u-container-layout u-similar-container u-container-layout-2">
+                <p class="u-align-right u-text u-text-grey-60 u-text-2" spellcheck="false" th:text="${{t.create_time}}">date</p>
+                <h3 class="u-align-left u-text u-text-palette-1-dark-1 u-text-3" th:text="${{t.title}}"> title <br></h3>
+                <p class="u-align-left u-text u-text-grey-60 u-text-9" spellcheck="false" th:text="${{t.watch}} + ' watched'">watch times</p>
+                <p class="u-text u-text-5" spellcheck="false" th:text="${{t.content}}">content<br>
+                </p>
+                <p class="u-align-left u-text u-text-palette-1-dark-1 u-text-6"  spellcheck="false" th:text="${{t.topics}}">topics</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
+    background-color: #4c7397 !important
+}</style>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

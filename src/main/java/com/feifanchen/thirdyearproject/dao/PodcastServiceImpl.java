@@ -4,6 +4,7 @@ import com.feifanchen.thirdyearproject.entities.Podcast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,16 @@ public class PodcastServiceImpl implements PodcastService {
     @Override
     public Iterable<Podcast> findAll() {
         return podcastRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Podcast> findAllByTopics() {
+        return null;
+    }
+
+    @Override
+    public Iterable<Podcast> findAllLatest() {
+        return podcastRepository.findAll(Sort.by(Sort.Direction.DESC,"time"));
     }
 
     @Override

@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.awt.*;
-
 @Controller
 @RequestMapping(value = "/events", produces = {MediaType.TEXT_HTML_VALUE})
 public class EventController {
@@ -22,7 +20,7 @@ public class EventController {
 
     @GetMapping
     public String findAll(Model model){
-        model.addAttribute("events", eventService.findAll());
-        return "events/index";
+        model.addAttribute("events", eventService.findList());
+        return "/events/index";
     }
 }

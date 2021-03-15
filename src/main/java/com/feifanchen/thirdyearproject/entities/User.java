@@ -1,19 +1,18 @@
 package com.feifanchen.thirdyearproject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
 
+    @Column(nullable = false, unique = true)
     private String user_name;
 
+    @Column(nullable = false, length = 64)
     private String password;
 
     private int admin;
@@ -28,6 +27,14 @@ public class User {
     public String getUser_name() {return user_name;}
 
     public void setUser_name(String user_name){ this.user_name = user_name;}
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public boolean checkAdmin(){
         if(admin == 1)

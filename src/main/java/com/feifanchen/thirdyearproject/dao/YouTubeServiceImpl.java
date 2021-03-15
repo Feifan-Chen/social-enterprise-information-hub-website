@@ -4,9 +4,11 @@ import com.feifanchen.thirdyearproject.entities.YouTube;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -27,6 +29,16 @@ public class YouTubeServiceImpl implements YouTubeService {
     @Override
     public Iterable<YouTube> findAll() {
         return youTubeRepository.findAll();
+    }
+
+    @Override
+    public Iterable<YouTube> findAllByTopics() {
+        return youTubeRepository.findAll();
+    }
+
+    @Override
+    public Iterable<YouTube> findAllLatest() {
+        return youTubeRepository.findAll(Sort.by(Sort.Direction.DESC,"time"));
     }
 
     @Override

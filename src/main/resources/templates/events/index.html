@@ -1,59 +1,52 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
-<head>
-    <title>All Topics</title>
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Events</title>
 </head>
-<body>
-<div layout:fragment="content">
-    <form action = "#" th:action="@{/events}" th:object = "${events}" method = "get">
-        <div class="row">
-            <div class = "form-group col-md-4">
-                <h1><a href="/homepage">cff</a></h1>
-            </div>
-            <div class = "form-group col-md-8">
-                <input type="text" placeholder="Search..." style="width: 600px; margin-top:15px;" name = "name" />
-                <button type="submit" class="btn btn-primary" style="margin-left:10px; margin-bottom:5px;"><i  aria-hidden="true"></i> Search</button>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+
+<section class="u-align-left u-clearfix u-valign-top u-white u-section-1" id="carousel_0f5c">
+    <div class="u-container-style u-expanded-width u-group u-image u-image-1" data-image-width="1500" data-image-height="500">
+        <div class="u-container-layout u-container-layout-1">
+            <h1 class="u-text u-text-palette-5-dark-2 u-text-1" spellcheck="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EVENTS</h1>
+        </div>
+    </div>
+<div class="u-clearfix u-section-3" id="carousel_b731">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-list u-repeater u-list-1">
+
+            <div th:each="t : ${events}">
+            <div class="u-container-style u-list-item u-repeater-item u-list-item-1">
+                <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
+                    <img th:src="'images/' + ${{t.thumbnail}}" alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="1200" data-image-height="1500">
+                    <h5 class="u-text u-text-2" th:text="${{t.name}}"> event names </h5>
+                    <p class="u-text u-text-palette-1-base u-text-1" spellcheck="false" th:each="s : ${t.topic}" th:text="'#' + ${{s.content}}">topics</p>
+                    <p class="u-text u-text-palette-1-base u-text-1" spellcheck="false" th:text="${{t.date}}">date</p>
+                    <h5 class="u-text u-text-2" th:text="${{t.name}}"> event names </h5>
+                    <p class="u-text u-text-3" th:text="${{t.description}}"> descriptions </p>
+                    <h4 class="u-text u-text-palette-1-base u-text-4" th:text="'£' + ${{t.ticket}}">price</h4>
+                    <a th:href="${{t.url}}" class="u-btn u-button-style u-btn-1" target="_Blank" >Book now</a>
+                </div>
             </div>
         </div>
-    </form>
-
-    <br>
-    <p style="color:Black; font-size: 25px">All Events</p>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th><i class="fas fa-map-marker-alt"></i> id </th>
-            <th><i class="fas fa-map"></i> name </th>
-            <th><i class="fas fa-map-marker-alt"></i> topic </th>
-            <th><i class="fas fa-map"></i> description </th>
-            <th><i class="fas fa-map-marker-alt"></i> ticket </th>
-            <th><i class="fas fa-map"></i> location </th>
-            <th><i class="fas fa-map-marker-alt"></i> holder </th>
-            <th><i class="fas fa-map"></i> url </th>
-            <th><i class="fas fa-map"></i> date </th>
-            <th><i class="fas fa-map-marker-alt"></i> time </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="t : ${events}">
-            <td th:text="${{t.id}}">Topic ID</td>
-            <td th:text="${{t.name}}">Topic name</td>
-            <td th:text="${{t.topic}}">Topic topic</td>
-            <td th:text="${{t.description}}">Topic des</td>
-            <td th:text="${{t.ticket}}">Topic ticket</td>
-            <td th:text="${{t.location}}">Topic location</td>
-            <td th:text="${{t.holder}}">Topic holder</td>
-            <td th:text="${{t.url}}">Topic url</td>
-            <td th:text="${{t.date}}">Topic date</td>
-            <td th:text="${{t.time}}">Topic time</td>
-        </tr>
-        </tbody>
-    </table>
-
+        </div>
+    </div>
 </div>
+</section>
+
+<style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
+    background-color: #4c7397 !important
+}</style>
+
+
+<footer th:replace="layout/footer::foot"> </footer>
+
 
 </body>
 </html>

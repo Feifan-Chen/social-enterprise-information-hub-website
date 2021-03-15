@@ -9,6 +9,12 @@ public interface EventService {
 
     Iterable<Event> findAll();
 
+    Iterable<Event> findAllToday();
+
+    Iterable<Event> findAllUpcoming();
+
+    Iterable<Event> findList();
+
     Optional<Event> findById(long id);
 
     void deleteById (long id);

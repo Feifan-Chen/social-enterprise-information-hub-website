@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
+<div th:fragment="">
+<h3 class="u-align-center u-text u-text-1" spellcheck="false">Report this comment?</h3>
+<form th:action="@{/forum/{id}(id=${c.post.id}, commentid=${c.id})}" method="post">
+    <button class="u-border-2 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-50 u-text-body-color u-text-hover-white u-btn-1">REPORT</button>
+</form>
+<a href="" class="u-border-2 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-50 u-text-body-color u-text-hover-white u-btn-2">CANCEL</a>

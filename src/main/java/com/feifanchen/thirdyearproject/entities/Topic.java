@@ -1,5 +1,6 @@
 package com.feifanchen.thirdyearproject.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.StringTokenizer;
 
 @Entity
@@ -24,6 +26,18 @@ public class Topic {
         private long add_by;
 
         private Timestamp add_at;
+
+        @ManyToMany
+        @JoinTable(name = "Youtubetopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "youtube_id"))
+        private List<YouTube> youtube;
+
+        @ManyToMany
+        @JoinTable(name = "Podcasttopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "podcast_id"))
+        private List<Podcast> podcast;
+
+        @ManyToMany
+        @JoinTable(name = "Eventtopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
+        private List<Event> event;
 
         public Topic() {
         }
@@ -60,4 +74,27 @@ public class Topic {
             this.add_at = timestamp;
         }
 
+        public List<YouTube> getYoutube() {
+        return youtube;
+    }
+
+        public void setYoutube(List<YouTube> youtube) {
+        this.youtube = youtube;
+    }
+
+        public List<Podcast> getPodcasts() {
+        return podcast;
+    }
+
+        public void setPodcasts(List<Podcast> podcasts) {
+        this.podcast = podcasts;
+    }
+
+        public List<Event> getEvent() {
+        return event;
+    }
+
+        public void setEvent(List<Event> event) {
+        this.event = event;
+    }
 }

@@ -4,9 +4,11 @@ import com.feifanchen.thirdyearproject.entities.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -28,7 +30,45 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Iterable<Event> findAll() {
-        return eventRepository.findAll();
+        return eventRepository.findAll(Sort.by(Sort.Direction.ASC,"date"));
+    }
+
+    @Override
+    public Iterable<Event> findAllToday() {
+        Iterable<Event> events = findAll();
+        ArrayList<Event> ret = new ArrayList<>();
+
+        for (Event e : events) {
+            if (e.happenToday())
+                ret.add(e);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public Iterable<Event> findAllUpcoming() {
+        Iterable<Event> events = findAll();
+        ArrayList<Event> ret = new ArrayList<>();
+
+        for (Event e : events) {
+            if (e.happenUpcoming())
+                ret.add(e);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public Iterable<Event> findList() {
+        ArrayList<Event> ret = new ArrayList<>();
+        for(Event e : findAllToday()){
+            ret.add(e);
+        }
+        for(Event e : findAllUpcoming()){
+            ret.add(e);
+        }
+        return ret;
     }
 
     @Override
@@ -45,4 +85,6 @@ public class EventServiceImpl implements EventService {
     public Event save(Event event) {
         return eventRepository.save(event);
     }
+
+
 }

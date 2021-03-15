@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Video Resources</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<!-- 登录表单 -->
+<form style="margin-left:500px;margin-top:200px;" th:action="@{process_reges}" method="post" th:object="${user}">
+    <div class="form-group">
+        <label for="user_name" stype="display:inline;">username：</label>
+        <input type="text" class="form-control" id="user_name" style="display:inline;width:200px;"autocomplete="off" th:field = "*{user_name}" required/>
+    </div>
+    <div class="form-group">
+        <label for="password" style="display:inline;">密码：</label>
+        <input type="text" class="form-control" id="password" style="display:inline;width:200px;"autocomplete="off" th:field = "*{password}" required />
+    </div>
+    <button type="submit" class="btn btn-primary">register</button>
+</form>
+</body>
+</html>

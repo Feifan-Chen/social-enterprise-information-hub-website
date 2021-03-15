@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>All Topics</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form action = "#" th:action="@{/templates/events}" th:object = "${events}" method = "get">
+        <div class="row">
+            <div class = "form-group col-md-4">
+                <h1><a href="/homepage">cff</a></h1>
+            </div>
+            <div class = "form-group col-md-8">
+                <input type="text" placeholder="Search..." style="width: 600px; margin-top:15px;" name = "name" />
+                <button type="submit" class="btn btn-primary" style="margin-left:10px; margin-bottom:5px;"><i  aria-hidden="true"></i> Search</button>
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <p style="color:Black; font-size: 25px">All Events</p>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th><i class="fas fa-map-marker-alt"></i> id </th>
+            <th><i class="fas fa-map"></i> name </th>
+            <th><i class="fas fa-map-marker-alt"></i> topic </th>
+            <th><i class="fas fa-map"></i> description </th>
+            <th><i class="fas fa-map-marker-alt"></i> ticket </th>
+            <th><i class="fas fa-map"></i> location </th>
+            <th><i class="fas fa-map-marker-alt"></i> holder </th>
+            <th><i class="fas fa-map"></i> url </th>
+            <th><i class="fas fa-map"></i> date </th>
+            <th><i class="fas fa-map-marker-alt"></i> time </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="t : ${events}">
+            <td th:text="${{t.id}}">Topic ID</td>
+            <td th:text="${{t.name}}">Topic name</td>
+            <td th:text="${{t.topic}}">Topic topic</td>
+            <td th:text="${{t.description}}">Topic des</td>
+            <td th:text="${{t.ticket}}">Topic ticket</td>
+            <td th:text="${{t.location}}">Topic location</td>
+            <td th:text="${{t.holder}}">Topic holder</td>
+            <td th:text="${{t.url}}">Topic url</td>
+            <td th:text="${{t.date}}">Topic date</td>
+            <td th:text="${{t.time}}">Topic time</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -7,6 +7,10 @@ public interface YouTubeService  {
 
     Iterable<YouTube> findAll();
 
+    Iterable<YouTube> findAllByTopics();
+
+    Iterable<YouTube> findAllLatest();
+
     YouTube findOne(long id);
 
     YouTube save(YouTube youTube);
