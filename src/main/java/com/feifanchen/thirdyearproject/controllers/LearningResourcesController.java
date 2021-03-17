@@ -4,7 +4,7 @@ import com.feifanchen.thirdyearproject.dao.PodcastService;
 import com.feifanchen.thirdyearproject.dao.TedtalkService;
 import com.feifanchen.thirdyearproject.dao.YouTubeService;
 import com.feifanchen.thirdyearproject.entities.Podcast;
-import com.feifanchen.thirdyearproject.entities.YouTube;
+import com.feifanchen.thirdyearproject.entities.YouTubeVideo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class LearningResourcesController {
 
     @GetMapping(value = "/youtube/{type}")
     public String findAllYoutube (@PathVariable int type, Model model){
-        Iterable<YouTube> res = new ArrayList<YouTube>();
+        Iterable<YouTubeVideo> res = new ArrayList<YouTubeVideo>();
         if(type == 0)
             res = youTubeService.findAll();
         else if(type == 1)//lastest

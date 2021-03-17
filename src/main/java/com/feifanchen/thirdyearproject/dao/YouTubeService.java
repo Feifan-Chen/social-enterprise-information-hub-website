@@ -1,19 +1,28 @@
 package com.feifanchen.thirdyearproject.dao;
 
-import com.feifanchen.thirdyearproject.entities.YouTube;
+import com.feifanchen.thirdyearproject.entities.YouTubeVideo;
+import com.google.api.services.youtube.YouTube;
+
+import java.util.List;
 
 public interface YouTubeService  {
     long count();
 
-    Iterable<YouTube> findAll();
+    Iterable<YouTubeVideo> findAll();
 
-    Iterable<YouTube> findAllByTopics();
+    Iterable<YouTubeVideo> findAllByTopics();
 
-    Iterable<YouTube> findAllLatest();
+    Iterable<YouTubeVideo> findAllLatest();
 
-    YouTube findOne(long id);
+    YouTubeVideo findOne(long id);
 
-    YouTube save(YouTube youTube);
+    YouTubeVideo save(YouTubeVideo youTube);
 
     void deleteById(long id);
+
+    List<YouTubeVideo> fetchVideosByQuery(String queryTerm);
+
+    String buildVideoUrl(String videoId);
+
+    YouTube getYouTube();
 }

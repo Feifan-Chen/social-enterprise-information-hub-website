@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "Youtube")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class YouTube implements java.io.Serializable{
+public class YouTubeVideo implements java.io.Serializable{
     @Id
     @GeneratedValue
     private long id;
@@ -37,7 +37,7 @@ public class YouTube implements java.io.Serializable{
 
     private Date time;
 
-    public YouTube(){
+    public YouTubeVideo(){
 
     }
 

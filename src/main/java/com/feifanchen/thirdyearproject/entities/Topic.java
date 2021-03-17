@@ -1,19 +1,13 @@
 package com.feifanchen.thirdyearproject.entities;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
 import javax.persistence.Entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.StringTokenizer;
 
 @Entity
 @Table(name = "Topic")
@@ -33,7 +27,7 @@ public class Topic implements java.io.Serializable{
 
         @ManyToMany
         @JoinTable(name = "Youtubetopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "youtube_id"))
-        private List<YouTube> youtube;
+        private List<YouTubeVideo> youtube;
 
         @ManyToMany
         @JoinTable(name = "Podcasttopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "podcast_id"))
@@ -78,11 +72,11 @@ public class Topic implements java.io.Serializable{
             this.add_at = timestamp;
         }
 
-        public List<YouTube> getYoutube() {
+        public List<YouTubeVideo> getYoutube() {
         return youtube;
     }
 
-        public void setYoutube(List<YouTube> youtube) {
+        public void setYoutube(List<YouTubeVideo> youtube) {
         this.youtube = youtube;
     }
 
