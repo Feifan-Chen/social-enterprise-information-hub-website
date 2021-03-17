@@ -60,9 +60,9 @@
     <div sec:authorize="!isAuthenticated()">
         <a class="u-login u-text-body-color u-login-1"  th:href="@{/login}">Guest/Login</a>
     </div>
-    <div sec:authorize="isAuthenticated()">
-        <a class="u-login u-text-body-color u-login-1"  sec:authentication="name">Guest/Login</a>
-        <a class="u-login u-text-body-color u-login-1"  th:href="@{/logout}">Logout</a>
+    <div sec:authorize="isAuthenticated()" style="display:inline" class="u-login u-text-body-color u-login-1">
+        <a sec:authentication="name">Guest</a>
+        <a th:href="@{/logout}">/Logout</a>
     </div>
     <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-3">
         <div class="menu-collapse">

@@ -61,6 +61,6 @@ public class UserController {
         changemaker.getUsers().add(user);
 
         redirectAttributes.addFlashAttribute("ok_message", "Successful!");
-        return "index";
+        return "redirect:/homepage";
     }
 }
