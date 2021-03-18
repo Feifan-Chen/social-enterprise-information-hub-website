@@ -15,7 +15,7 @@ import java.util.List;
 @DynamicUpdate(true)
 public class YouTubeVideo implements java.io.Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String title;
@@ -33,7 +33,7 @@ public class YouTubeVideo implements java.io.Serializable{
 
     private Timestamp add_at;
 
-    private long add_by;
+    private String add_by;
 
     private Date time;
 
@@ -87,11 +87,11 @@ public class YouTubeVideo implements java.io.Serializable{
         this.url = url;
     }
 
-    public long getAdd_by(){
+    public String getAdd_by(){
         return add_by;
     }
 
-    public void setAdd_by(long id){
+    public void setAdd_by(String id){
         this.add_by = id;
     }
 

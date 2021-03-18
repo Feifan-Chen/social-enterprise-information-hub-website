@@ -16,7 +16,7 @@ import java.util.List;
 @DynamicUpdate(true)
 public class Event implements java.io.Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;

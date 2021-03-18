@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @DynamicUpdate(true)
 public class ForumComment implements java.io.Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private long usr_id;

@@ -14,7 +14,7 @@ import java.util.Set;
 @DynamicUpdate(true)
 public class ForumPost implements java.io.Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String title;

@@ -16,7 +16,7 @@ import java.util.List;
 public class Topic implements java.io.Serializable{
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
 
         private String content;

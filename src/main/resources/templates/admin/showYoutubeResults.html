@@ -53,7 +53,7 @@
                                                     <p th:text="${video.description}"></p>
                                                 </div>
 
-                                                <form th:action="@{/test/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">
+                                                <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">
                                                     <button type="submit">save</button>
                                                 </form>
                                             </li>

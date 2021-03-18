@@ -12,18 +12,19 @@
 
 <section class="u-clearfix u-section-9" id="sec-87ba">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Youtube Video Resources</h3>
+        <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Youtube Video</h3>
+        <br>
+        <br>
         <div align="center">
-        <form class="form-horizontal" th:action="@{save}" th:object="${video}" method="post"  >
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('title')}? has-error">
+        <form class="form-horizontal" th:action="@{save(id=${id}, add_by=${#authentication.getName()})}" th:object="${video}" method="post"  >
+            <div class="form-group">
                 <label for="title" class="col-sm-2 control-label">Title</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="title"  th:value= "${video.title}" name = "title">
-                    <p class="text-danger" th:errors="*{title}">errors</p>
+                    <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">errors</p>
                 </div>
             </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('thumbnail')}? has-error">
+            <div class="form-group">
                 <label for="thumbnail" class="col-sm-2 control-label">thumbnail</label>
                 <div align="center" class="list-thumb">
                         <img alt="" th:src="${video.thumbnail}" />
@@ -33,7 +34,7 @@
                     <p class="text-danger" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}">errors</p>
                 </div>
             </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('description')}? has-error">
+            <div class="form-group">
                 <label for="description" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="description"   th:value= "${video.description}" name = "description">
@@ -41,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="form-group" th:classappend="${#fields.hasErrors('url')}? has-error">
+            <div class="form-group">
                 <label for="url" class="col-sm-2 control-label">URL</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="url" th:value = "${video.url}" name = "url">
@@ -49,12 +50,28 @@
                 </div>
             </div>
 
-            <div class="form-group" th:classappend="${#fields.hasErrors('time')}? has-error">
+            <div class="form-group">
                 <label for="time" class="col-sm-2 control-label">time</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="time" th:value = "${video.time}" name = "time">
                     <p class="text-danger" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">errors</p>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="time" class="col-sm-2 control-label">Topic</label>
+            <p>
+                <label>
+                        <input
+                                type="checkbox"
+                                name="RoleModuleVo"
+                                th:each="m:${topicModel}"
+                                th:value="${m.topic.id}"
+                                th:checked="${m.ischecked}"
+                                th:text="${m.topic.content}"
+                        />
+                </label>
+            </p>
             </div>
 
             <div align="center">
