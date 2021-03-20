@@ -7,7 +7,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Youtube")
@@ -23,9 +25,9 @@ public class YouTubeVideo implements java.io.Serializable{
     private String thumbnail;
 
     //use string to represent the arraylist of topics (id) relates to this podcast
-    @JsonIgnore
-    @ManyToMany(mappedBy = "youtube", fetch=FetchType.EAGER)
-    private List<Topic> topic;
+    @ManyToMany
+    @JoinTable(name = "Youtubetopic", joinColumns = @JoinColumn(name = "youtube_id"), inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private Set<Topic> y_topic = new HashSet<>();
 
     private String description;
 
@@ -63,12 +65,12 @@ public class YouTubeVideo implements java.io.Serializable{
         this.thumbnail = thumbnail;
     }
 
-    public List<Topic> getTopic(){
-        return topic;
+    public Set<Topic> getTopic(){
+        return y_topic;
     }
 
-    public void setTopic(List<Topic> topics){
-        this.topic = topics;
+    public void setTopic(Set<Topic> topics){
+        this.y_topic = topics;
     }
 
     public String getDescription(){
@@ -109,6 +111,14 @@ public class YouTubeVideo implements java.io.Serializable{
 
     public void setTime(Date timestamp) {
         this.time = timestamp;
+    }
+
+    public void addTopic(Topic topic){
+        this.y_topic.add(topic);
+    }
+
+    public void removeTopic(Topic topic){
+        this.y_topic.remove(topic);
     }
 
 }

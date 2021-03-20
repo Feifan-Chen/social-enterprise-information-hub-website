@@ -1,4 +1,5 @@
 package com.feifanchen.thirdyearproject.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Topic")
@@ -25,9 +28,9 @@ public class Topic implements java.io.Serializable{
 
         private Timestamp add_at;
 
-        @ManyToMany
-        @JoinTable(name = "Youtubetopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "youtube_id"))
-        private List<YouTubeVideo> youtube;
+        @JsonIgnore
+        @ManyToMany(mappedBy = "y_topic", fetch=FetchType.EAGER)
+        private Set<YouTubeVideo> youtube;
 
         @ManyToMany
         @JoinTable(name = "Podcasttopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "podcast_id"))
@@ -72,11 +75,11 @@ public class Topic implements java.io.Serializable{
             this.add_at = timestamp;
         }
 
-        public List<YouTubeVideo> getYoutube() {
+        public Set<YouTubeVideo> getYoutube() {
         return youtube;
     }
 
-        public void setYoutube(List<YouTubeVideo> youtube) {
+        public void setYoutube(Set<YouTubeVideo> youtube) {
         this.youtube = youtube;
     }
 
@@ -95,4 +98,17 @@ public class Topic implements java.io.Serializable{
         public void setEvent(List<Event> event) {
         this.event = event;
     }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Topic topic = (Topic) o;
+            return id == topic.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
 }

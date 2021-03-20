@@ -10,7 +10,7 @@ public interface TopicService {
 
     Iterable<Topic> findAll();
 
-    Optional<Topic> findById(long id);
+    Topic findById(long id);
 
     void deleteById(long id);
 

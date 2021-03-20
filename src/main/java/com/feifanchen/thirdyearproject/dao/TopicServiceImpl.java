@@ -32,8 +32,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Optional<Topic> findById(long id) {
-        return topicRepository.findById(id);
+    public Topic findById(long id) {
+        return topicRepository.findById(id).orElse(null);
     }
 
     @Override

@@ -17,7 +17,9 @@ import javax.validation.Valid;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/youtubeadmin", produces = {MediaType.TEXT_HTML_VALUE})
@@ -87,36 +89,18 @@ public class YouTubeController {
         video.setUrl(strarray[1]);
         video.setTime(time);
 
-        List<TopicModel> topicModel = new ArrayList<>();
-
-        for(Topic t : topicService.findAll()){
-            topicModel.add(new TopicModel(t, false));
-        }
         model.addAttribute("video", video);
-        model.addAttribute("topicModel", topicModel);
-        model.addAttribute("id", 0);
+        model.addAttribute("topicModel", topicService.findAll());
         return "/learningresources/youtubevideo";
     }
 
     @RequestMapping(value = "/showSingleVideo")
     public String showSingleVideo(@RequestParam("id") long id, Model model){
         YouTubeVideo video =  youTubeService.findOne(id);
-
-        List<TopicModel> topicModel = new ArrayList<>();
-        for(Topic t : topicService.findAll()){
-            topicModel.add(new TopicModel(t, false));
-        }
-
-        for(TopicModel t : topicModel){
-            for(Topic v: video.getTopic()){
-                if(v.getId() == t.getTopic().getId())
-                    t.setIschecked(true);
-            }
-        }
-
+//        Topic test = topicService.findById(2);
+//        System.out.println(topicService.findAll().);
         model.addAttribute("video", video);
-        model.addAttribute("topicModel", topicModel);
-        model.addAttribute("id", video.getId());
+        model.addAttribute("topicModel", topicService.findAll());
         //System.out.println(topicList.toString());
         return "/learningresources/youtubevideo";
     }
@@ -124,16 +108,11 @@ public class YouTubeController {
     @PostMapping(value = "/save")
     public String saveVideo(YouTubeVideo video, @RequestParam("add_by") String add_by, @RequestParam("id") long id){
         Timestamp d = new Timestamp(System.currentTimeMillis());
-        if(id != 0)
-            video.setId(id);
-
-        video.setAdd_at(d);
-        video.setAdd_by(add_by);
-        List<Topic> topics = new ArrayList<Topic>();
-        video.setTopic(topics);
+        if(id == (long)0) {
+            video.setAdd_at(d);
+            video.setAdd_by(add_by);
+        }
         youTubeService.save(video);
-
-        System.out.println(add_by);
 
         return "/learningresources/index";
     }
