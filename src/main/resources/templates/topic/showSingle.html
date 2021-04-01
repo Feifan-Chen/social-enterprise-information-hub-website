@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Events</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-align-center u-clearfix u-section-11" id="sec-f7ab">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-1"><span th:text="${topic.content}"></span></h2>
+        <a class="u-text u-text-default u-text-2" href="JavaScript:history.back(-1)">BACK</a>
+        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+
+        <h2 class="u-text u-text-default u-text-palette-2-dark-1 u-text-1">Events</h2>
+        <div class="u-list u-repeater u-list-1">
+            <div th:each="t : ${events}">
+            <div class="u-align-left u-container-style u-list-item u-palette-3-light-3 u-repeater-item u-list-item-1" data-href="" target="_Blank" th:attr="data-href=${{t.url}}">
+                <div class="u-container-layout u-similar-container u-container-layout-1">
+                    <h4 class="u-text u-text-default u-text-2" th:text="${t.name}"></h4>
+                    <p class="u-text u-text-3" th:text="${t.description}">description</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <h2 class="u-text u-text-default u-text-palette-1-dark-1 u-text-10">Learning Resources</h2>
+        <div class="u-list u-repeater u-list-2">
+                <div th:each="t : ${youtubes}">
+                    <div class="u-align-left u-container-style u-list-item u-palette-4-light-2 u-repeater-item u-list-item-5" data-href="" target="_Blank"  th:attr="data-href='https://www.youtube.com/watch?v=' + ${{t.url}}">
+                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                            <h4 class="u-text u-text-default u-text-2" th:text="${t.title}"></h4>
+                            <p class="u-text u-text-3" th:text="${t.description}">description</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="u-list u-repeater u-list-2">
+            <div th:each="t : ${podcasts}">
+                <div class="u-align-left u-container-style u-list-item u-palette-4-light-2 u-repeater-item u-list-item-5" data-href="" target="_Blank" th:attr="data-href=${{t.url}}">
+                    <div class="u-container-layout u-similar-container u-container-layout-1">
+                        <h4 class="u-text u-text-default u-text-2" th:text="${t.title}"></h4>
+                        <p class="u-text u-text-3" th:text="${t.description}">description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="u-text u-text-default u-text-palette-5-dark-2 u-text-15">Forum Related</h2>
+        <div class="u-list u-repeater u-list-3">
+            <div th:each="t : ${posts}">
+            <div class="u-align-left u-container-style u-grey-10 u-list-item u-repeater-item u-list-item-7" data-href="" target="_Blank" th:attr="data-href='/forum/'+ ${{t.id}}">
+                <div class="u-container-layout u-similar-container u-container-layout-7">
+                    <h4 class="u-text u-text-default u-text-16" th:text="${{t.title}}">Sample Headline</h4>
+                    <p class="u-text u-text-17" th:text="${{t.content}}">content</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
+    background-color: #4c7397 !important
+}</style>
+
+
+<footer th:replace="layout/footer::foot"> </footer>
+
+
+</body>
+</html>

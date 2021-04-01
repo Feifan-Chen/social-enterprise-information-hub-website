@@ -3,12 +3,15 @@ package com.feifanchen.thirdyearproject.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Event")
@@ -21,9 +24,9 @@ public class Event implements java.io.Serializable{
 
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "event", fetch=FetchType.EAGER)
-    private List<Topic> topic;
+    @ManyToMany
+    @JoinTable(name = "Eventtopic", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private Set<Topic> e_topic = new HashSet<>();
 
     private String description;
 
@@ -37,6 +40,7 @@ public class Event implements java.io.Serializable{
 
     private String url;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
 
     private Timestamp time;
@@ -57,12 +61,12 @@ public class Event implements java.io.Serializable{
 
     public void setName(String name){ this.name = name; }
 
-    public List<Topic> getTopic(){
-        return topic;
+    public Set<Topic> getTopic(){
+        return e_topic;
     }
 
-    public void setTopic(List<Topic> topics){
-        this.topic = topics;
+    public void setTopic(Set<Topic> topics){
+        this.e_topic = topics;
     }
 
     public String getDescription(){

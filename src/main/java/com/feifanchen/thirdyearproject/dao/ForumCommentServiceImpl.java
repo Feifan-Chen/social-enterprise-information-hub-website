@@ -33,6 +33,17 @@ public class ForumCommentServiceImpl implements ForumCommentService {
     }
 
     @Override
+    public Iterable<ForumComment> findAllReported() {
+        Iterable<ForumComment> com = findAll();
+        ArrayList<ForumComment> res = new ArrayList<>();
+        for(ForumComment c : com){
+            if(c.getReport() == 1 )
+                res.add(c);
+        }
+        return res;
+    }
+
+    @Override
     public ForumComment findOne(long id) {
         return forumCommentRepository.findById(id).orElse(null);
     }

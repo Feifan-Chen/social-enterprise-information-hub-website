@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Youtube Video</h3>
+        </div>
+        <br>
+        <br>
+        <div align="center">
+            <form class="form-horizontal" th:action="@{save(id=${event.id}, add_by=${#authentication.getName()})}" th:object="${event}" method="post"  >
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{time}">
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name"  th:value= "${event.name}" name = "name">
+                        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ticket" class="col-sm-2 control-label">Ticket</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="ticket"  th:value= "${event.ticket}" name = "ticket">
+                        <p class="text-danger" th:if="${#fields.hasErrors('ticket')}" th:errors="*{ticket}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="thumbnail" class="col-sm-2 control-label">thumbnail</label>
+                    <div align="center" class="list-thumb">
+                        <img alt="" th:src="${event.thumbnail}" />
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="thumbnail" th:value= "${event.thumbnail}" name = "thumbnail">
+                        <p class="text-danger" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}">errors</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description"   th:text= "${event.description}" name = "description"></textarea>
+                        <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="holder" class="col-sm-2 control-label">Holder</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="holder"   th:value= "${event.holder}" name = "holder">
+                        <p class="text-danger" th:if="${#fields.hasErrors('holder')}" th:errors="*{holder}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location" class="col-sm-2 control-label">Location</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="location"   th:value= "${event.location}" name = "location">
+                        <p class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="url" th:value = "${event.url}" name = "url">
+                        <p class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="date" th:value = "${event.date}" name = "date">
+                        <p class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Topics</label>
+                    <div class="col-sm-8 text-left">
+                        <div th:each="m:${topicModel}">
+                            <input
+                                    type="checkbox"
+                                    th:value="${m.id}"
+                                    th:field="*{topic}"
+                                    th:text="${m.content}"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Save</button>
+                    <a href="JavaScript:history.back(-1)" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

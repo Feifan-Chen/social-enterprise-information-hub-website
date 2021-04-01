@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    function passvalue(i,settings){
+        settings.url = i;
+    }
+
+    function setname(i,post){
+        post.name = i;
+    }
+
+    var i = "https://www.eventbriteapi.com/v3/events/" + [[${url}]] + "/"
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http",
+        "method": "GET",
+        "headers": {
+            "Authorization": "Bearer O5G4A7PGSULDXXO7EI4B",
+            "Content-Type": "application/json"
+        }
+    }
+
+    var post = {
+        "name": "",
+        "information": "data.description.text"
+    }
+
+    passvalue(i,settings);
+
+    $.ajax(settings).done(function (data) {
+        console.log(data);
+        var content = "<h2>" + data.name.text + "</h2>"
+                        + "<p> Event information: </p>"
+                        + "<p>" + data.description.text + "</p>"
+                        + "<p>" + data.url + "</p>"
+                        +"<p>" + data.start.local + "</p>"
+                        + "<img src =" + data.logo.url + ">";
+        setname(data.name.text,post);
+        console.log(post);
+        var title = data.name.text;
+        var des  =  data.description.text;
+        var url = data.url;
+        var date = data.start.local;
+        var ff = date.substring(0,10);
+        var src = data.logo.url;
+        $("#eventbrite").append(content);
+        $("#des").append(des);
+        document.getElementById("title").value = title;
+        document.getElementById("thumbnail").value = src;
+        document.getElementById("url").value = url;
+        document.getElementById("date").value = ff;
+        $('#pic').empty().append('<img src="' + src + '">');
+    });
+
+        function test() {
+            $.ajax({
+                type: "GET",      //请求方式
+                dataType: "html", //请求返回数据的格式
+                url: "http://localhost:8080/events/test",   //请求的地址
+                data: post,
+                //async: false,    //true所有请求均为异步请求
+                // success: function (data) {  //请求成功后的回调方法
+                // },
+            });
+        }
+
+</script>
+<div align="center">
+<h3 class="u-text u-text-palette-1-dark-2 u-text-1">Event</h3>
+<br>
+<form class="form-horizontal" th:action="@{save(id=${event.id})}" th:object="${event}" method="post"  >
+    <input type="hidden" th:field="*{id}">
+<!--    <input type="hidden" th:field="*{time}">-->
+
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="title"  th:field= "*{name}" name = "name">
+            <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="ticket" class="col-sm-2 control-label">Ticket</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="ticket"  th:field= "*{ticket}" name = "ticket">
+            <p class="text-danger" th:if="${#fields.hasErrors('ticket')}" th:errors="*{ticket}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="thumbnail" class="col-sm-2 control-label">thumbnail</label>
+        <div id="pic" align="center" class="list-thumb">
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="thumbnail" th:field= "*{thumbnail}" name = "thumbnail">
+            <p class="text-danger" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}">errors</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="des" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="des"  th:field= "*{description}"  name = "description"></textarea>
+            <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="holder" class="col-sm-2 control-label">Holder</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="holder"   th:field= "*{holder}" name = "holder">
+            <p class="text-danger" th:if="${#fields.hasErrors('holder')}" th:errors="*{holder}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="location" class="col-sm-2 control-label">Location</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="location"   th:field= "*{location}" name = "location">
+            <p class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="url" class="col-sm-2 control-label">URL</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="url" th:field="*{url}" name = "url">
+            <p class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="date" class="col-sm-2 control-label">Date</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" id="date" th:field="*{date}" name = "date">
+            <p class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">errors</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Topics</label>
+        <div class="col-sm-8 text-left">
+            <div th:each="m:${topicModel}">
+                <input
+                        type="checkbox"
+                        th:value="${m.id}"
+                        th:field="*{topic}"
+                        th:text="${m.content}"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div align="center">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Save</button>
+        <a href="JavaScript:history.back(-1)" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Cancel</a>
+    </div>
+</form>
+</div>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

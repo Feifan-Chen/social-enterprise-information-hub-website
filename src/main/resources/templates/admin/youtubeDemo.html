@@ -10,51 +10,71 @@
 <body class="u-body">
 <header th:replace="layout/header::header"> </header>
 
-<div class="page-container">
-    <div class="page-content-wrapper">
-        <div class="page-head" style="background-color:#eff3f8;padding-top:40px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 ">
-                        <div class="portlet box blue ">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="icon-home"></i>
-                                    <span class="caption-subject" style="position:relative;top:2px">YouTube API Demo</span>
-                                </div>
-                            </div>
-                            <div class="portlet-body form">
-                                <form id="employeeForm" th:action="@{youtubeDemo}" th:object="${youtubeSearchCriteria}" method="post">
-                                    <div class="form-body">
-                                        <div>
-                                            <div class="mt-element-ribbon bg-grey-steel">
-                                                <div class="ribbon ribbon-color-success uppercase">Search Criteria</div>
-                                                <p class="ribbon-content">Please enter a keyword or phrase to search for.</p>
-                                            </div>
-                                        </div>
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <h2 class="u-text u-text-default u-text-4">Please enter a keyword or phrase to search for.</h2>
 
-                                        <div class="form-group">
-                                            <label>Search:</label>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form id="employeeForm" th:action="@{youtubeDemo}" th:object="${youtubeSearchCriteria}" method="post">
+                <div class="form-body">
+                    <div class="form-group">
 <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
-                                                <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                                <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: tom brady"/>
-                                                <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                            <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                            <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: tom brady"/>
+                            <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
 <!--                                            </div>-->
-                                        </div>
-
-                                    </div>
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn blue">Search YouTube</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
+
                 </div>
-            </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Search by query</button>
+                </div>
+            </form>
+
+            <form id="url" th:action="@{youtubeDemoByURL}" th:object="${youtubeSearchCriteria}" method="post">
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                        <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                        <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: tom brady"/>
+                        <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                        <!--                                            </div>-->
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Search by url</button>
+                </div>
+            </form>
+
+            <form id="ted" th:action="@{/tedtalk/tedDemo}" th:object="${youtubeSearchCriteria}" method="post">
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                        <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                        <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: tom brady"/>
+                        <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                        <!--                                            </div>-->
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Search by url</button>
+                </div>
+            </form>
+
+            <br>
+            <br>
+            <a class="btn btn-primary" th:href="@{/youtubeadmin/youtubeDemoByChannel}">Search All Flourish videos </a>
         </div>
     </div>
-</div>
+</section>
 <footer th:replace="layout/footer::foot"> </footer>
 </body>
 </html>

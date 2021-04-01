@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.send(null);
+    }
+
+    // var trackID = 4926220;
+    var trackID= [[${url}]];
+
+    httpGetAsync('https://api.audioboom.com/audio_clips/'+trackID+'.mp3', function(res) {
+
+        var data = JSON.parse(res);
+        var description = data.body.audio_clip.description;
+        var title = data.body.audio_clip.title;
+        var time = data.body.audio_clip.recorded_at;
+        var ff = time.substring(0,10);
+        var url = [[${orign}]]
+        var doc = document;
+        doc.getElementById('title').value = title;
+        doc.getElementById('description').innerText = description;
+        doc.getElementById('time').value = ff;
+        doc.getElementById('url').value = url;
+
+    })
+
+</script>
+
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Podcast Video</h3>
+            <br>
+            <br>
+            <form class="form-horizontal" th:action="@{save(id=${video.id}, add_by=${#authentication.getName()})}" th:object="${video}" method="post"  >
+                <input type="hidden" th:field="*{id}">
+                <div th:if="${video.add_at} ne null">
+                    <input type="hidden" th:field="*{add_at}">
+                    <input type="hidden" th:field="*{add_by}">
+                </div>
+
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title"  th:field="*{title}" name = "title">
+                        <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description"   th:field="*{description}" name = "description"></textarea>
+                        <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="url" th:field="*{url}"  name = "url">
+                        <p class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="time" class="col-sm-2 control-label">time</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="time" th:field="*{time}" name = "time">
+                        <p class="text-danger" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">errors</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Topics</label>
+                    <div class="col-sm-8 text-left">
+                        <div th:each="m:${topicModel}">
+                            <input
+                                    type="checkbox"
+                                    th:value="${m.id}"
+                                    th:field="*{topic}"
+                                    th:text="${m.content}"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Save</button>
+                    <a href="JavaScript:history.back(-1)" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

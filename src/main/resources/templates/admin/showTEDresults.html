@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-clearfix u-section-14" id="sec-4574">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-1">Youtube Videos</h2>
+        <h4 class="u-text u-text-default u-text-2"><span th:text="${numberOfVideos}"></span> videos match "<span th:text="${youtubeSearchCriteria.queryTerm}"></span>"</h4>
+        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+        <div class="u-expanded-width u-list u-repeater u-list-1">
+            <div th:each="video,iterationStatus : ${videos}">
+                <div class="u-container-style u-list-item u-repeater-item">
+                    <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                        <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="2000" data-image-height="1333" th:src="${video.thumbnail}">
+                        <h4 class="u-text u-text-default u-text-4" spellcheck="false" th:text="${video.title}">Sample Headline</h4>
+                        <h6 class="u-text u-text-4"th:href="${video.url}" target="_blank" th:text="${video.url}">url</h6>
+                        <p class="u-text u-text-5" th:text="${video.description}"></p>
+                        <p class="u-text u-text-6" spellcheck="false" th:text="${video.time}"></p>
+                        <form th:action="@{/tedtalk/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">
+                            <button  class="u-active-none u-border-2 u-border-active-palette-1-base u-btn u-button-style u-grey-60 u-hover-none u-text-body-alt-color u-text-hover-grey-5 u-btn-1" type="submit">save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <a th:href="@{/youtubeadmin/youtubeDemo}" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">New Search</a>
+    </div>
+    <br>
+</section>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

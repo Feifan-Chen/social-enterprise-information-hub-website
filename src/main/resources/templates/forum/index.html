@@ -16,6 +16,12 @@
             <h1 class="u-text u-text-palette-5-dark-2 u-text-1" spellcheck="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORUM</h1>
         </div>
     </div>
+    <br>
+    <br>
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+        <a th:href="@{/forum/addPost}" class="u-btn u-button-style u-btn-1">Write new post</a>
+        </div>
     <div class="u-list u-repeater u-list-1">
         <div th:each="t : ${forumposts}">
         <div class="u-container-style u-list-item u-repeater-item u-white u-list-item-1" data-href="/forum/{num}(num=${t.id})" th:attr="data-href='/forum/'+ ${{t.id}}">
@@ -25,10 +31,13 @@
                 <p class="u-align-left u-text u-text-grey-60 u-text-9" spellcheck="false" th:text="${{t.watch}} + ' watched'">watch times</p>
                 <p class="u-text u-text-5" spellcheck="false" th:text="${{t.content}}">content<br>
                 </p>
-                <p class="u-align-left u-text u-text-palette-1-dark-1 u-text-6"  spellcheck="false" th:text="${{t.topics}}">topics</p>
+                <div>
+                    <a class="u-text u-text-5" spellcheck="false" th:each="s : ${t.topics}" th:href="@{/topic/{num}(num=${s.id})}"th:text="' #' + ${{s.content}}">topics</a>
+                </div>
             </div>
         </div>
         </div>
+    </div>
     </div>
 </section>
 

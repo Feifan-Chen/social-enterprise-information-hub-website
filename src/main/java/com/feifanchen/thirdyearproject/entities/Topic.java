@@ -24,7 +24,7 @@ public class Topic implements java.io.Serializable{
 
         private String content;
 
-        private long add_by;
+        private String add_by;
 
         private Timestamp add_at;
 
@@ -32,15 +32,23 @@ public class Topic implements java.io.Serializable{
         @ManyToMany(mappedBy = "y_topic", fetch=FetchType.EAGER)
         private Set<YouTubeVideo> youtube;
 
-        @ManyToMany
-        @JoinTable(name = "Podcasttopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "podcast_id"))
-        private List<Podcast> podcast;
+        @JsonIgnore
+        @ManyToMany(mappedBy = "p_topic", fetch=FetchType.EAGER)
+        private Set<Podcast> podcast;
 
-        @ManyToMany
-        @JoinTable(name = "Eventtopic", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
-        private List<Event> event;
+        @JsonIgnore
+        @ManyToMany(mappedBy = "t_topic", fetch=FetchType.EAGER)
+        private Set<Tedtalk> ted;
 
-        public Topic() {
+        @JsonIgnore
+        @ManyToMany(mappedBy = "e_topic", fetch=FetchType.EAGER)
+        private Set<Event> event;
+
+        @JsonIgnore
+        @ManyToMany(mappedBy = "f_topic", fetch=FetchType.EAGER)
+        private Set<ForumPost> posts;
+
+    public Topic() {
         }
 
         public long getId() {
@@ -59,11 +67,11 @@ public class Topic implements java.io.Serializable{
             this.content = content;
         }
 
-        public long getAdd_by(){
+        public String  getAdd_by(){
             return add_by;
         }
 
-        public void setAdd_by(long id){
+        public void setAdd_by(String id){
             this.add_by = id;
         }
 
@@ -83,23 +91,39 @@ public class Topic implements java.io.Serializable{
         this.youtube = youtube;
     }
 
-        public List<Podcast> getPodcasts() {
+        public Set<Podcast> getPodcasts() {
         return podcast;
     }
 
-        public void setPodcasts(List<Podcast> podcasts) {
+        public void setPodcasts(Set<Podcast> podcasts) {
         this.podcast = podcasts;
     }
 
-        public List<Event> getEvent() {
-        return event;
+        public Set<Tedtalk> getTed() {
+        return ted;
     }
 
-        public void setEvent(List<Event> event) {
-        this.event = event;
+        public void setTed(Set<Tedtalk> ted) {
+        this.ted = ted;
     }
 
-        @Override
+        public Set<Event> getEvent() {
+            return event;
+        }
+
+        public void setEvent(Set<Event> event) {
+            this.event = event;
+        }
+
+        public Set<ForumPost> getPosts() {
+            return posts;
+        }
+
+        public void setPosts(Set<ForumPost> posts) {
+            this.posts = posts;
+        }
+
+    @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;

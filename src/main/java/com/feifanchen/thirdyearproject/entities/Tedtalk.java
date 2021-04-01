@@ -5,7 +5,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.TypeAlias;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Tedtalk")
@@ -20,8 +23,9 @@ public class Tedtalk implements java.io.Serializable{
 
     private String thumbnail;
 
-    //use string to represent the arraylist of topics (id) relates to this podcast
-    private String topic;
+    @ManyToMany
+    @JoinTable(name = "Tedtopic", joinColumns = @JoinColumn(name = "ted_id"), inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private Set<Topic> t_topic = new HashSet<>();
 
     private String description;
 
@@ -29,7 +33,9 @@ public class Tedtalk implements java.io.Serializable{
 
     private Timestamp add_at;
 
-    private long add_by;
+    private String add_by;
+
+    private Date time;
 
 
     public Tedtalk(){
@@ -58,12 +64,12 @@ public class Tedtalk implements java.io.Serializable{
         this.thumbnail = thumbnail;
     }
 
-    public String getTopic(){
-        return topic;
+    public Set<Topic> getTopic(){
+        return t_topic;
     }
 
-    public void setTopic(String topics){
-        this.topic = topics;
+    public void setTopic(Set<Topic> topics){
+        this.t_topic = topics;
     }
 
     public String getDescription(){
@@ -82,11 +88,11 @@ public class Tedtalk implements java.io.Serializable{
         this.url = url;
     }
 
-    public long getAdd_by(){
+    public String getAdd_by(){
         return add_by;
     }
 
-    public void setAdd_by(long id){
+    public void setAdd_by(String id){
         this.add_by = id;
     }
 
@@ -96,5 +102,13 @@ public class Tedtalk implements java.io.Serializable{
 
     public void setAdd_at(Timestamp timestamp) {
         this.add_at = timestamp;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

@@ -10,69 +10,161 @@
 <body class="u-body">
 <header th:replace="layout/header::header"> </header>
 
-<div class="page-container">
-    <div class="page-content-wrapper">
-        <div class="page-head" style="background-color:#eff3f8;padding-top:40px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-lg-6">
-                        <div class="portlet light portlet-fit ">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class=" icon-layers font-green"></i>
-                                    <span class="caption-subject font-green bold uppercase">YouTube Search Results</span>
-                                    <div class="caption-desc font-grey-cascade"><span th:text="${numberOfVideos}"></span> videos match "<span th:text="${youtubeSearchCriteria.queryTerm}"></span>"</div>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="mt-element-list">
-                                    <div class="mt-list-head list-news ext-1 font-white bg-green-sharp">
-                                        <div class="list-head-title-container">
-                                            <h3 class="list-title">Videos</h3>
-                                        </div>
-                                        <div class="list-count pull-right bg-blue" th:text="${numberOfVideos}"></div>
-                                    </div>
-                                    <div class="mt-list-container list-news ext-1">
-                                        <ul>
-                                            <li class="mt-list-item" th:each="video,iterationStatus : ${videos}">
-                                                <div class="list-icon-container">
-                                                    <a th:href="${video.url}" target="_blank">
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="list-thumb">
-                                                    <a th:href="${video.url}" target="_blank">
-                                                        <img alt="" th:src="${video.thumbnail}" />
-                                                    </a>
-                                                </div>
-                                                <div class="list-datetime bold uppercase font-blue" th:text="${video.time}"></div>
-                                                <div class="list-item-content">
-                                                    <h4 class="uppercase">
-                                                        <a th:href="${video.url}" target="_blank" th:text="${video.title}"></a>
-                                                    </h4>
-                                                    <p th:text="${video.description}"></p>
-                                                </div>
-
-                                                <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">
-                                                    <button type="submit">save</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div style="margin-top:30px">
-                                    <button type="button" class="btn btn-primary" onclick="document.location='./youtubeDemo'">New Search</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+<!--<section class="u-clearfix u-section-12" id="sec-8f77">-->
+<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--        <h2 class="u-text u-text-palette-1-dark-1 u-text-1">Sample Headline</h2>-->
+<!--        <h4 class="u-text u-text-default u-text-2">Sample Headline</h4>-->
+<!--        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>-->
+<!--        <div class="u-expanded-width u-list u-repeater u-list-1">-->
+<!--            <div class="u-container-style u-list-item u-palette-5-light-3 u-repeater-item u-shape-rectangle u-list-item-1" src="">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-1">-->
+<!--                    <h3 class="u-text u-text-body-color u-text-default u-text-3" spellcheck="false">Sample Headline</h3>-->
+<!--                    <p class="u-text u-text-body-color u-text-4">Sample text. Click to select the text box. Click again or double click to start edit&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1111112sfdhzh&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ing the text.</p>-->
+<!--                    <p class="u-large-text u-text u-text-body-color u-text-variant u-text-5">url</p>-->
+<!--                    <img src="images/Screenshot2021-03-02at11.19.54.png" alt="" class="u-image u-image-default u-image-1" data-image-width="1544" data-image-height="464">-->
+<!--                    <p class="u-text u-text-body-color u-text-6" spellcheck="false">time</p>-->
+<!--                    <a href="https://www.nicepage.com/wordpress-website-builder" class="u-active-none u-border-2 u-border-active-palette-1-base u-btn u-button-style u-grey-60 u-hover-none u-text-body-alt-color u-text-hover-grey-5 u-btn-1">save</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<section class="u-clearfix u-section-14" id="sec-4574">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-1">Youtube Videos</h2>
+        <h4 class="u-text u-text-default u-text-2"><span th:text="${numberOfVideos}"></span> videos match "<span th:text="${youtubeSearchCriteria.queryTerm}"></span>"</h4>
+        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+        <div class="u-expanded-width u-list u-repeater u-list-1">
+            <div th:each="video,iterationStatus : ${videos}">
+            <div class="u-container-style u-list-item u-repeater-item">
+                <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                    <img alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="2000" data-image-height="1333" th:src="${video.thumbnail}">
+                    <h4 class="u-text u-text-default u-text-4" spellcheck="false" th:text="${video.title}">Sample Headline</h4>
+                    <h6 class="u-text u-text-4"th:href="${video.url}" target="_blank" th:text="${video.url}">url</h6>
+                    <p class="u-text u-text-5" th:text="${video.description}"></p>
+                    <p class="u-text u-text-6" spellcheck="false" th:text="${video.time}"></p>
+                    <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">
+                        <button  class="u-active-none u-border-2 u-border-active-palette-1-base u-btn u-button-style u-grey-60 u-hover-none u-text-body-alt-color u-text-hover-grey-5 u-btn-1" type="submit">save</button>
+                    </form>
                 </div>
+            </div>
             </div>
         </div>
     </div>
-</div>
+
+        <a th:href="@{/youtubeadmin/youtubeDemo}" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">New Search</a>
+    </div>
+<br>
+</section>
+
+<!--<section class="u-clearfix u-section-12" id="sec-8f77">-->
+<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--        <h2 class="u-text u-text-palette-1-dark-1 u-text-1">Youtube Videos</h2>-->
+<!--        <h4 class="u-text u-text-default u-text-2"><span th:text="${numberOfVideos}"></span> videos match "<span th:text="${youtubeSearchCriteria.queryTerm}"></span>"</h4>-->
+<!--        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>-->
+<!--        <div class="u-expanded-width u-list u-repeater u-list-1">-->
+<!--            <div th:each="video,iterationStatus : ${videos}">-->
+<!--            <div class="u-container-style u-custom-color-5 u-group u-group-2">-->
+<!--                <div class="u-container-layout u-container-layout-3">-->
+<!--                    <div class="u-video u-video-contain u-video-1">-->
+<!--                        <div class="embed-responsive embed-responsive-1">-->
+<!--                            <img style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" th:src="${video.thumbnail}"></img>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <h3 class="u-text u-text-default u-text-3" spellcheck="false" th:text="${video.title}">Sample Headline</h3>-->
+<!--                    <p class="u-text u-text-4" th:text="${video.description}">descirption</p>-->
+<!--                    <a class="u-large-text u-text u-text-variant u-text-5" th:href="${video.url}" target="_blank" th:text="${video.url}">url</a>-->
+<!--                    <p class="u-text u-text-6" spellcheck="false" th:text="${video.time}">time</p>-->
+<!--                    <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">-->
+<!--                        <button  class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-white u-btn u-button-style u-hover-none u-none u-text-body-alt-color u-text-hover-palette-2-base u-btn-1" type="submit">save</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--            <div th:each="video,iterationStatus : ${videos}">-->
+<!--                <div>-->
+<!--                       <img  th:src="${video.thumbnail}" class="u-container-style u-list-item u-palette-5-light-3 u-repeater-item u-shape-rectangle u-list-item-1">-->
+<!--&lt;!&ndash;                    <img th:src="${video.thumbnail}" >&ndash;&gt;-->
+<!--                    <div class="u-container-layout u-similar-container u-container-layout-1">-->
+<!--                        <h3 class="u-text u-text-default u-text-3" spellcheck="false" th:text="${video.title}">Sample Headline</h3>-->
+<!--                        <p class="u-text u-text-4" th:text="${video.description}">descirption</p>-->
+<!--                        <a class="u-large-text u-text u-text-variant u-text-5" th:href="${video.url}" target="_blank" th:text="${video.url}">url</a>-->
+<!--                        <p class="u-text u-text-6" spellcheck="false" th:text="${video.time}">time</p>-->
+<!--                        <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">-->
+<!--                            <button  class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-white u-btn u-button-style u-hover-none u-none u-text-body-alt-color u-text-hover-palette-2-base u-btn-1" type="submit">save</button>-->
+<!--                        </form>-->
+<!--&lt;!&ndash;                        <a href="https://www.nicepage.com/wordpress-website-builder" class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-white u-btn u-button-style u-hover-none u-none u-text-body-alt-color u-text-hover-palette-2-base u-btn-1">save</a>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</section>
+
+<!--<div class="page-container">-->
+<!--    <div class="page-content-wrapper">-->
+<!--        <div class="page-head" style="background-color:#eff3f8;padding-top:40px">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-4 col-lg-6">-->
+<!--                        <div class="portlet light portlet-fit ">-->
+<!--                            <div class="portlet-title">-->
+<!--                                <div class="caption">-->
+<!--                                    <i class=" icon-layers font-green"></i>-->
+<!--                                    <span class="caption-subject font-green bold uppercase">YouTube Search Results</span>-->
+<!--                                    <div class="caption-desc font-grey-cascade"><span th:text="${numberOfVideos}"></span> videos match "<span th:text="${youtubeSearchCriteria.queryTerm}"></span>"</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="portlet-body">-->
+<!--                                <div class="mt-element-list">-->
+<!--                                    <div class="mt-list-head list-news ext-1 font-white bg-green-sharp">-->
+<!--                                        <div class="list-head-title-container">-->
+<!--                                            <h3 class="list-title">Videos</h3>-->
+<!--                                        </div>-->
+<!--                                        <div class="list-count pull-right bg-blue" th:text="${numberOfVideos}"></div>-->
+<!--                                    </div>-->
+<!--                                    <div class="mt-list-container list-news ext-1">-->
+<!--                                        <ul>-->
+<!--                                            <li class="mt-list-item" th:each="video,iterationStatus : ${videos}">-->
+<!--                                                <div class="list-icon-container">-->
+<!--                                                    <a th:href="${video.url}" target="_blank">-->
+<!--                                                        <i class="fa fa-angle-right"></i>-->
+<!--                                                    </a>-->
+<!--                                                </div>-->
+<!--                                                <div class="list-thumb">-->
+<!--                                                    <a th:href="${video.url}" target="_blank">-->
+<!--                                                        <img alt="" th:src="${video.thumbnail}" />-->
+<!--                                                    </a>-->
+<!--                                                </div>-->
+<!--                                                <div class="list-datetime bold uppercase font-blue" th:text="${video.time}"></div>-->
+<!--                                                <div class="list-item-content">-->
+<!--                                                    <h4 class="uppercase">-->
+<!--                                                        <a th:href="${video.url}" target="_blank" th:text="${video.title}"></a>-->
+<!--                                                    </h4>-->
+<!--                                                    <p th:text="${video.description}"></p>-->
+<!--                                                </div>-->
+
+<!--                                                <form th:action="@{/youtubeadmin/showSingle(title=${video.title}, thumbnail=${video.thumbnail}, description=${video.description}, url=${video.url}, time=${video.time})}" method="post">-->
+<!--                                                    <button type="submit">save</button>-->
+<!--                                                </form>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="margin-top:30px">-->
+<!--                                    <button type="button" class="btn btn-primary" onclick="document.location='./youtubeDemo'">New Search</button>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <footer th:replace="layout/footer::foot"> </footer>

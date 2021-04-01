@@ -2,10 +2,7 @@ package com.feifanchen.thirdyearproject.controllers;
 
 import com.feifanchen.thirdyearproject.dao.TopicService;
 import com.feifanchen.thirdyearproject.dao.YouTubeService;
-import com.feifanchen.thirdyearproject.entities.Topic;
-import com.feifanchen.thirdyearproject.entities.TopicModel;
-import com.feifanchen.thirdyearproject.entities.YouTubeVideo;
-import com.feifanchen.thirdyearproject.entities.YoutubeSearchCriteria;
+import com.feifanchen.thirdyearproject.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -38,13 +35,17 @@ public class YouTubeController {
     public String youtubeDemo(Model model) {
         //instantiate an empty address object
         YoutubeSearchCriteria youtubeSearchCriteria = new YoutubeSearchCriteria();
+        EventSearchCriteria search = new EventSearchCriteria();
+
+        //put the object in the model
+        model.addAttribute("search", search);
 
         //put the object in the model
         model.addAttribute("youtubeSearchCriteria", youtubeSearchCriteria);
 
         //get out
         System.out.println("hereh");
-        return "/admin/youtubeDemo";
+        return "/admin/generator";
     }
 
     @PostMapping(value = "/youtubeDemo")
@@ -56,7 +57,58 @@ public class YouTubeController {
         }
 
         //get the list of YouTube videos that match the search term
-        List<YouTubeVideo> videos = youTubeService.fetchVideosByQuery(youtubeSearchCriteria.getQueryTerm());
+        List<YouTubeVideo> videos = youTubeService.fetchVideosByQuery(youtubeSearchCriteria.getQueryTerm(), 0);
+
+        if (videos != null && videos.size() > 0) {
+            model.addAttribute("numberOfVideos", videos.size());
+        } else {
+            model.addAttribute("numberOfVideos", 0);
+        }
+
+        //put it in the model
+        model.addAttribute("videos", videos);
+
+        //add the criteria to the model as well
+        model.addAttribute("youtubeSearchCriteria", youtubeSearchCriteria);
+
+        //get out
+        return "/admin/showYoutubeResults";
+    }
+
+
+    @RequestMapping(value = "/youtubeDemoByURL")
+    public String formSubmitbyURL(@Valid YoutubeSearchCriteria youtubeSearchCriteria, BindingResult bindingResult, Model model) {
+        //check for errors
+        if (bindingResult.hasErrors()) {
+            return "/admin/generator";
+        }
+
+        String[] strarray=youtubeSearchCriteria.getQueryTerm().split("=");
+        //get the list of YouTube videos that match the id
+        List<YouTubeVideo> videos = youTubeService.fetchVideosByQuery(strarray[1], 0);
+
+        if (videos != null && videos.size() > 0) {
+            model.addAttribute("numberOfVideos", videos.size());
+        } else {
+            model.addAttribute("numberOfVideos", 0);
+        }
+
+        //put it in the model
+        model.addAttribute("videos", videos);
+
+        //add the criteria to the model as well
+        model.addAttribute("youtubeSearchCriteria", youtubeSearchCriteria);
+
+        //get out
+        return "/admin/showYoutubeResults";
+    }
+
+    @RequestMapping(value = "/youtubeDemoByChannel")
+    public String formSubmitbyChannel(Model model) {
+        //get the list of YouTube videos that match the id
+        List<YouTubeVideo> videos = youTubeService.fetchVideosByQuery("null", 1);
+        YoutubeSearchCriteria youtubeSearchCriteria = new YoutubeSearchCriteria();
+        youtubeSearchCriteria.setQueryTerm("Flourish Together");
 
         if (videos != null && videos.size() > 0) {
             model.addAttribute("numberOfVideos", videos.size());
@@ -105,15 +157,16 @@ public class YouTubeController {
         return "/learningresources/youtubevideo";
     }
 
-    @PostMapping(value = "/save")
+    @RequestMapping(value = "/save", method={RequestMethod.POST})
     public String saveVideo(YouTubeVideo video, @RequestParam("add_by") String add_by, @RequestParam("id") long id){
         Timestamp d = new Timestamp(System.currentTimeMillis());
+        System.out.println(id);
         if(id == (long)0) {
             video.setAdd_at(d);
             video.setAdd_by(add_by);
         }
         youTubeService.save(video);
 
-        return "/learningresources/index";
+        return "redirect:/user/admin";
     }
 }

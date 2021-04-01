@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Events</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-align-center u-clearfix u-section-10" id="sec-1542">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <a th:href="@{/youtubeadmin/youtubeDemo}" class="u-btn u-button-style u-btn-1">Resource Auto-Generator</a>
+        </div>
+        <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
+            <ul class="u-tab-list u-unstyled" role="tablist">
+                <li class="u-tab-item" role="presentation">
+                    <a class="active u-active-white u-border-2 u-border-active-palette-2-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">Learning resources</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-border-2 u-border-active-palette-2-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">Events</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-border-2 u-border-active-palette-2-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">Forums</a>
+                </li>
+                <li class="u-tab-item u-tab-item-4" role="presentation">
+                    <a class="u-active-white u-border-2 u-border-active-palette-2-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-4" id="tab-6ff1" href="#link-tab-6ff1" role="tab" aria-controls="link-tab-6ff1" aria-selected="false">Reports</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-border-2 u-border-active-palette-2-base u-border-grey-15 u-border-hover-grey-15 u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-grey-10 u-hover-grey-10 u-tab-link u-tab-link-5" id="link-tab-6379" href="#tab-6379" role="tab" aria-controls="tab-6379" aria-selected="false">Topics</a>
+                </li>
+            </ul>
+            <div class="u-tab-content">
+                <div class="u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
+                    <div class="u-container-layout u-valign-bottom u-container-layout-1">
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">Podcast</th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">URL</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="p : ${podcast}">
+                                <td class="u-table-cell" th:text="${p.title}">name</td>
+                                <td class="u-table-cell" th:text="${p.url}"> url</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/learningresources/showSinglePodcast(id=${p.id})}">Edit</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/learningresources/podcast/{num}(num=${p.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">Youtube&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">URL</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="p : ${youtube}">
+                                <td class="u-table-cell" th:text="${p.title}">name</td>
+                                <td class="u-table-cell" th:text="'https://www.youtube.com/watch?v=' + ${{p.url}}"> url</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/youtubeadmin/showSingleVideo(id=${p.id})}">Edit</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/learningresources/youtube/{num}(num=${p.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">TED&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">URL</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="p : ${teds}">
+                                <td class="u-table-cell" th:text="${p.title}">name</td>
+                                <td class="u-table-cell" th:text="'https://www.youtube.com/watch?v=' + ${{p.url}}"> url</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/tedtalk/showSingleTed(id=${p.id})}">Edit</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/learningresources/ted/{num}(num=${p.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
+                    <div class="u-container-layout u-valign-top u-container-layout-2">
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">Event&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">Url</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="e : ${events}">
+                                <td class="u-table-cell" th:text="${e.name}">name</td>
+                                <td class="u-table-cell" th:text="${e.url}">url</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/events/showSingle(id=${e.id})}">Edit</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/events/{num}(num=${e.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
+                    <div class="u-container-layout u-container-layout-3">
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">Forum Post&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">Watched</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="p : ${forum}">
+                                <td class="u-table-cell" th:text="${p.title}">name</td>
+                                <td class="u-table-cell" th:text="${p.watch}">watch</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/forum/showSingle(id=${p.id})}">Edit</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/forum/{num}(num=${p.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-4" id="link-tab-6ff1" role="tabpanel" aria-labelledby="tab-6ff1">
+                    <div class="u-container-layout u-container-layout-4">
+                        <div class="u-expanded-width u-table u-table-responsive u-table-2">
+                            <table class="u-table-entity">
+                                <colgroup>
+                                    <col width="25%">
+                                    <col width="25%">
+                                    <col width="25.000000000000007%">
+                                    <col width="24.900000000000006%">
+                                </colgroup>
+                                <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                                <tr style="height: 32px;">
+                                    <th class="u-table-cell u-table-cell-9" spellcheck="false">Reported Post&nbsp;</th>
+                                    <th class="u-table-cell u-table-cell-10" spellcheck="false">Watched</th>
+                                    <th class="u-table-cell" spellcheck="false">Display&nbsp;</th>
+                                    <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody class="u-table-body">
+                                <tr style="height: 46px;" th:each="p : ${reportpost}">
+                                    <td class="u-table-cell" th:text="${p.title}">name</td>
+                                    <td class="u-table-cell" th:text="${p.watch}">watch</td>
+                                    <td class="u-table-cell">
+                                        <a th:href="@{/forum/showSingle(id=${p.id})}">Show</a>
+                                    </td>
+                                    <td class="u-table-cell u-table-cell-16">
+<!--                                        <form th:action="@{/forum/{num}(num=${p.id})}" th:method="delete">-->
+                                            <a th:href="@{/forum/{num}(num=${p.id})}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</a>
+<!--                                        </form>-->
+<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=1)}" th:method="post">-->
+                                            <a th:href="@{/forum/pass(id=${p.id}, type=1)}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Keep</a>
+<!--                                        </form>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="u-table-entity">
+                                <colgroup>
+                                    <col width="25%">
+                                    <col width="25%">
+                                    <col width="25.000000000000007%">
+                                    <col width="24.900000000000006%">
+                                </colgroup>
+                                <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                                <tr style="height: 32px;">
+                                    <th class="u-table-cell u-table-cell-9" spellcheck="false"> Reported Comment&nbsp;</th>
+                                    <th class="u-table-cell u-table-cell-10" spellcheck="false">Create Time</th>
+                                    <th class="u-table-cell" spellcheck="false">Display&nbsp;</th>
+                                    <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody class="u-table-body">
+                                <tr style="height: 46px;" th:each="p : ${reportcomment}">
+                                    <td class="u-table-cell" th:text="${p.content}">name</td>
+                                    <td class="u-table-cell" th:text="${p.create_time}">watch</td>
+                                    <td class="u-table-cell">
+                                        <a th:href="@{/forum/showReportSingle(id=${p.id})}">Show</a>
+                                    </td>
+                                    <td class="u-table-cell u-table-cell-16">
+<!--                                        <form th:action="@{/forum/comment/{num}(num=${p.id})}" th:method="delete">-->
+                                            <a  th:href="@{/forum/comment/{num}(num=${p.id})}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</a>
+<!--                                        </form>-->
+<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=2)}" th:method="post">-->
+                                            <a th:href="@{/forum/pass(id=${p.id}, type=2)}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Keep</a>
+<!--                                        </form>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="u-container-style u-tab-pane u-white u-tab-pane-5" id="tab-6379" role="tabpanel" aria-labelledby="link-tab-6379">
+                    <div class="u-container-layout u-container-layout-5">
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="25.000000000000007%">
+                                <col width="24.900000000000006%">
+                            </colgroup>
+                            <thead class="u-palette-1-light-3 u-table-header u-table-header-1">
+                            <tr style="height: 32px;">
+                                <th class="u-table-cell u-table-cell-9" spellcheck="false">Topic&nbsp;&nbsp;&nbsp; <a th:href="@{/topic/new}">Add</a></th>
+                                <th class="u-table-cell u-table-cell-10" spellcheck="false">Add_by</th>
+                                <th class="u-table-cell" spellcheck="false">Actions&nbsp;</th>
+                                <th class="u-table-cell u-table-cell-12" spellcheck="false">Delete&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-table-body">
+                            <tr style="height: 46px;" th:each="p : ${topics}">
+                                <td class="u-table-cell" th:text="${p.content}">content</td>
+                                <td class="u-table-cell" th:text="${p.add_by}">name</td>
+                                <td class="u-table-cell">
+                                    <a th:href="@{/topic/showSingle(id=${p.id})}">Edit&nbsp;&nbsp;</a>
+                                </td>
+                                <td class="u-table-cell u-table-cell-16">
+                                    <form th:action="@{/topic/delete/{num}(num=${p.id})}" th:method="delete">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
+    background-color: #4c7397 !important
+}</style>
+
+
+<footer th:replace="layout/footer::foot"> </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <h2 class="u-text u-text-default u-text-4">Please enter URL to search for.</h2>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <form id="employeeForm" th:action="@{eventSearch}" th:object="${search}" method="post">
+                <div class="form-body">
+                    <div class="form-group">
+                        <label>Search:</label>
+                        <input type="text" class="form-control" maxlength="2000" th:field="*{url}" placeholder="For example: tom brady"/>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn blue">Search by URL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

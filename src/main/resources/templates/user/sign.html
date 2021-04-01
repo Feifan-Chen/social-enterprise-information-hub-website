@@ -13,7 +13,6 @@
 <section class="u-clearfix u-section-9" id="sec-87ba">
     <div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Register New Account</h3>
-        <!-- 登录表单 -->
         <form style="margin-left:350px;margin-top:70px;" th:action="@{process_reges}" method="post" th:object="${user}">
             <div class="form-group">
                 <label for="user_name" style="display:inline;">Username：</label>
@@ -21,39 +20,12 @@
             </div>
             <div class="form-group">
                 <label for="password" style="display:inline;">Password：</label>
-                <input type="text" class="form-control" id="password" style="display:inline;width:200px;"autocomplete="off" th:field = "*{password}" required />
+                <input type="password" class="form-control" id="password" style="display:inline;width:200px;"autocomplete="off" th:field = "*{password}" required />
             </div>
             <button type="submit" class="btn btn-primary">register</button>
         </form>
     </div>
 </section>
-
-
-<!--<section class="u-clearfix u-section-9" id="sec-87ba">-->
-<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
-<!--        <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Register New Account</h3>-->
-<!--        <div class="u-form u-form-1">-->
-<!--            <form th:action="@{process_reges}" method="post" th:object="${user}" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">-->
-<!--                <input type="hidden" id="siteId" name="siteId" value="236553">-->
-<!--                <input type="hidden" id="pageId" name="pageId" value="236554">-->
-<!--                <div class="u-form-group u-form-name">-->
-<!--                    <label for="name-72a6" class="u-form-control-hidden u-label">Name</label>-->
-<!--                    <input th:field = "*{user_name}" type="text" placeholder="Choose your name" id="name-72a6" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" spellcheck="false">-->
-<!--                </div>-->
-<!--                <div class="u-form-email u-form-group">-->
-<!--                    <label for="email-72a6" class="u-form-control-hidden u-label">Email</label>-->
-<!--                    <input  th:field = "*{password}" type="text" placeholder="Choose your password" id="email-72a6" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">-->
-<!--                </div>-->
-<!--                <div class="u-align-center u-form-group u-form-submit">-->
-<!--                    <a th:href="@{/homepage}" class="u-btn u-btn-submit u-button-style">Submit</a>-->
-<!--                    <input type="submit" value="submit" class="u-form-control-hidden">-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--        <h6 class="u-text u-text-2">Name</h6>-->
-<!--        <h6 class="u-text u-text-3">Password</h6>-->
-<!--    </div>-->
-<!--</section>-->
 
 <style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
     background-color: #4c7397 !important

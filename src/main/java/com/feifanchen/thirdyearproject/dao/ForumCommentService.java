@@ -8,6 +8,8 @@ public interface ForumCommentService {
 
     Iterable<ForumComment> findAll();
 
+    Iterable<ForumComment> findAllReported();
+
     ForumComment findOne(long id);
 
     //Iterable<ForumComment> findByOnePost(long id);

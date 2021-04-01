@@ -20,7 +20,7 @@ public interface YouTubeService  {
 
     void deleteById(long id);
 
-    List<YouTubeVideo> fetchVideosByQuery(String queryTerm);
+    List<YouTubeVideo> fetchVideosByQuery(String queryTerm, int status);
 
     String buildVideoUrl(String videoId);
 

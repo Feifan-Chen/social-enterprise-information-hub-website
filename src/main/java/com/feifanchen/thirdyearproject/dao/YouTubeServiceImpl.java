@@ -1,7 +1,12 @@
 package com.feifanchen.thirdyearproject.dao;
 
 import com.feifanchen.thirdyearproject.entities.YouTubeVideo;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
@@ -14,17 +19,23 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional
 public class YouTubeServiceImpl implements YouTubeService {
 
-    private static final long MAX_SEARCH_RESULTS = 5;
+    private static final long MAX_SEARCH_RESULTS = 9;
 
     private final static Logger log = LoggerFactory.getLogger(TopicServiceImpl.class);
 
@@ -69,11 +80,11 @@ public class YouTubeServiceImpl implements YouTubeService {
         youTubeRepository.deleteById(id);
     }
 
+
     /**
      * Returns the first 5 YouTube videos that match the query term
      */
-    @Override
-    public List<YouTubeVideo> fetchVideosByQuery(String queryTerm) {
+    public List<YouTubeVideo> fetchVideosByQuery(String queryTerm, int status) {
         List<YouTubeVideo> videos = new ArrayList<YouTubeVideo>();
 
         try {
@@ -87,9 +98,18 @@ public class YouTubeServiceImpl implements YouTubeService {
             String apiKey = "AIzaSyDdpJKzCPUP7ZiQCsKDbJ5r7OjOxAZbcTk";
             search.setKey(apiKey);
 
+            if(status == 0)
             //set the search term
-            search.setQ(queryTerm);
-
+                search.setQ(queryTerm);
+            else if(status == 1) {
+                search.setChannelId("UCnzaP6ufqGGBVaJ3R0uPTVw");
+                search.setOrder("date");
+            }
+            else if(status == 2){
+                search.setQ(queryTerm);
+                search.setChannelId("UCAuUUnT6oDeKwE6v1NGQxug");
+                search.setOrder("date");
+            }
             //we only want video results
             search.setType("video");
 

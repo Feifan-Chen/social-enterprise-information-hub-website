@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-align-center u-clearfix u-section-13" id="sec-7832">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width u-tab-links-align-center u-tabs u-tabs-1">
+            <ul class="u-grey-5 u-spacing-15 u-tab-list u-unstyled u-tab-list-1" role="tablist">
+                <li class="u-tab-item" role="presentation">
+                    <a class="active u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">New Events</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">New TED/Podcast</a>
+                </li>
+                <li class="u-tab-item" role="presentation">
+                    <a class="u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">New Youtube videos</a>
+                </li>
+            </ul>
+            <div class="u-tab-content">
+                <div class="u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
+                    <div class="u-container-layout u-container-layout-1">
+                        <div align="center">
+                        <form id="employeForm" th:action="@{/events/eventSearch}" th:object="${search}" method="post">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <i th:if="${#fields.hasErrors('url')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                    <input type="text" class="form-control" maxlength="200" th:field="*{url}" placeholder="For example: https://www.eventbrite.co.uk/e/iwd2021-putting-the-profit-back-in-non-profit-tickets-137311389061?aff=ebdsoporgprofile"/>
+                                    <span th:if="${#fields.hasErrors('url')}" class="help-block" th:errors="*{url}"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Search by URL</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                        <div align="center">
+                        <form id="ted" th:action="@{/tedtalk/tedDemo}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: social enterprise"/>
+                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    <!--                                            </div>-->
+                                </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">TED Search by query</button>
+                            </div>
+                            </div>
+                        </form>
+                            <br>
+                        <form id="podcast" th:action="@{/learningresources/search}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                    <input type="text" class="form-control" maxlength="200" th:field="*{queryTerm}" placeholder="For example: https://audioboom.com/posts/7434839-episode-2-career-pathways-for-social-change"/>
+                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    <!--                                            </div>-->
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Search by AudioBoom URL</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
+                    <div class="u-container-layout u-valign-top u-container-layout-3">
+                        <div align="center">
+                        <form id="employeeForm" th:action="@{/youtubeadmin/youtubeDemo}" th:object="${youtubeSearchCriteria}" method="post">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: women leadership"/>
+                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    <!--                                            </div>-->
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Search by query</button>
+                            </div>
+                        </form>
+                        <br>
+                        <form id="url" th:action="@{/youtubeadmin/youtubeDemoByURL}" th:object="${youtubeSearchCriteria}" method="post">
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
+                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: https://www.youtube.com/watch?v=uOvK8roYVUU"/>
+                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    <!--                                            </div>-->
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Search by URL</button>
+                            </div>
+                        </form>
+
+                        <br>
+                        <br>
+                        <a class="btn btn-primary" th:href="@{/youtubeadmin/youtubeDemoByChannel}">Discover all Flourish videos</a>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

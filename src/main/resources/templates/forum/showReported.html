@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div align="center">
+            <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Forum Post</h3>
+        </div>
+        <br>
+        <br>
+        <div align="center">
+            <form  class="form-horizontal" role="form" th:action="@{save(id=${post.id}, add_by=${#authentication.getName()})}" th:object="${comment}" method="post"  >
+
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title"  th:value= "${post.title}" name = "title">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content" class="col-sm-2 control-label" >Content</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="content"   th:text= "${post.content}" name = "content"></textarea>
+                        <p class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">errors</p>
+                    </div>
+                </div>
+
+                <div align="center">
+                    <h4 class="u-text u-text-palette-1-dark-2 u-text-1">Reported Comment</h4>
+                </div>
+                <div class="form-group">
+                    <label for="comment" class="col-sm-2 control-label" th:text="${comment.usr_id.user_name}">Comment</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="comment"   th:text= "${comment.content}" name = "comment"></textarea>
+                    </div>
+                </div>
+
+
+                <div align="center">
+<!--                    <button type="submit" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Save</button>-->
+                    <a href="JavaScript:history.back(-1)" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i>Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

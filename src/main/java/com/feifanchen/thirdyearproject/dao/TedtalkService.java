@@ -12,4 +12,6 @@ public interface TedtalkService {
     Tedtalk save(Tedtalk tedtalk);
 
     void deleteById(long id);
+
+    Iterable<Tedtalk> findAllLatest();
 }

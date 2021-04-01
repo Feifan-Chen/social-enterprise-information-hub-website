@@ -1,7 +1,10 @@
 package com.feifanchen.thirdyearproject.entities;
 
+import com.feifanchen.thirdyearproject.dao.UserService;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,11 +14,14 @@ import java.sql.Timestamp;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 public class ForumComment implements java.io.Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long usr_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usr_id", nullable=false)
+    private User c_usr;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", nullable=false)
@@ -27,20 +33,16 @@ public class ForumComment implements java.io.Serializable{
 
     private int report;
 
-    public ForumComment(){
-
-    }
-
     public long getId(){return id;}
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public long getUsr_id(){return usr_id;}
+    public User getUsr_id(){return c_usr;}
 
-    public void setUsr_id(long usr_id) {
-        this.usr_id = usr_id;
+    public void setUsr_id(User usr) {
+        this.c_usr = usr;
     }
 
     public ForumPost getPost(){

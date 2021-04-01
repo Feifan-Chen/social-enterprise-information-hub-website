@@ -7,6 +7,8 @@ public interface ForumPostService {
 
     Iterable<ForumPost> findAll();
 
+    Iterable<ForumPost> findAllReported();
+
     ForumPost findOne(long id);
 
     ForumPost save(ForumPost forumPost);

@@ -2,6 +2,7 @@ package com.feifanchen.thirdyearproject.dao;
 
 import com.feifanchen.thirdyearproject.entities.Tedtalk;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,5 +40,9 @@ public class TedtalkServiceImpl implements TedtalkService {
     @Override
     public void deleteById(long id) {
         tedtalkRepository.deleteById(id);
+    }
+
+    public Iterable<Tedtalk> findAllLatest() {
+        return tedtalkRepository.findAll(Sort.by(Sort.Direction.DESC,"time"));
     }
 }

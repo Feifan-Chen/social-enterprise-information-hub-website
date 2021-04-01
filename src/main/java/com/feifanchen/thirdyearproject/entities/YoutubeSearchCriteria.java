@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 
 public class YoutubeSearchCriteria {
 
-    @Size(min=5, max=64, message="Search term must be between 5 and 64 characters")
+    @Size(min=5, max=200, message="Search term must be between 5 and 64 characters")
     private String queryTerm;
 
     public YoutubeSearchCriteria(){}

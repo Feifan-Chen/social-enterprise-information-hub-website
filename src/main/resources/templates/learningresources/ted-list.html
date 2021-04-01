@@ -5,43 +5,47 @@
       layout:decorate="~{layouts/default}">
 
 <head th:replace="layout/head :: head(~{::title})">
-    <title>Podcasts</title>
+    <title>YouTubeVideos</title>
 </head>
+
+<style>
+    p1{
+        display: inline-block;
+    }
+</style>
 <body class="u-body">
 <header th:replace="layout/header::header"> </header>
 
 <section class="u-align-left u-clearfix u-white u-section-6" id="sec-2052">
     <div class="u-container-style u-expanded-width u-group u-image u-image-1" data-image-width="1500" data-image-height="500">
         <div class="u-container-layout u-container-layout-1">
-            <h1 class="u-text u-text-palette-5-dark-2 u-text-1" spellcheck="false">Podcasts</h1>
-            <a th:href="@{/learningresources/podcast/{type}(type = 1)}" class="u-btn u-button-style u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-1">
+            <h1 class="u-text u-text-palette-5-dark-2 u-text-1" spellcheck="false">TED Talks</h1>
+            <a th:href="@{/learningresources/ted/{type}(type = 1)}" class="u-btn u-button-style u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-1">
                 <br>explore the Latest&nbsp;<span class="u-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 -32 426.66667 426" style="width: 1em; height: 1em;"><path d="m213.332031 181.667969c0 4.265625-1.277343 8.53125-3.625 11.730469l-106.667969 160c-3.839843 5.761718-10.238281 9.601562-17.707031 9.601562h-64c-11.730469 0-21.332031-9.601562-21.332031-21.332031 0-4.269531 1.28125-8.535157 3.625-11.734375l98.773438-148.265625-98.773438-148.269531c-2.34375-3.199219-3.625-7.464844-3.625-11.730469 0-11.734375 9.601562-21.335938 21.332031-21.335938h64c7.46875 0 13.867188 3.839844 17.707031 9.601563l106.667969 160c2.347657 3.199218 3.625 7.464844 3.625 11.734375zm0 0"></path><path d="m426.667969 181.667969c0 4.265625-1.28125 8.53125-3.628907 11.730469l-106.664062 160c-3.839844 5.761718-10.242188 9.601562-17.707031 9.601562h-64c-11.734375 0-21.335938-9.601562-21.335938-21.332031 0-4.269531 1.28125-8.535157 3.628907-11.734375l98.773437-148.265625-98.773437-148.269531c-2.347657-3.199219-3.628907-7.464844-3.628907-11.730469 0-11.734375 9.601563-21.335938 21.335938-21.335938h64c7.464843 0 13.867187 3.839844 17.707031 9.601563l106.664062 160c2.347657 3.199218 3.628907 7.464844 3.628907 11.734375zm0 0"></path></svg><img></span>
             </a>
-<!--            <a th:href="@{/learningresources/podcast/{type}(type = 2)}" class="u-btn u-button-style u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">-->
+<!--            <a th:href="@{/learningresources/ted/{type}(type = 2)}" class="u-btn u-button-style u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">-->
 <!--                <br>explore by topics&nbsp;<span class="u-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 -32 426.66667 426" style="width: 1em; height: 1em;"><path d="m213.332031 181.667969c0 4.265625-1.277343 8.53125-3.625 11.730469l-106.667969 160c-3.839843 5.761718-10.238281 9.601562-17.707031 9.601562h-64c-11.730469 0-21.332031-9.601562-21.332031-21.332031 0-4.269531 1.28125-8.535157 3.625-11.734375l98.773438-148.265625-98.773438-148.269531c-2.34375-3.199219-3.625-7.464844-3.625-11.730469 0-11.734375 9.601562-21.335938 21.332031-21.335938h64c7.46875 0 13.867188 3.839844 17.707031 9.601563l106.667969 160c2.347657 3.199218 3.625 7.464844 3.625 11.734375zm0 0"></path><path d="m426.667969 181.667969c0 4.265625-1.28125 8.53125-3.628907 11.730469l-106.664062 160c-3.839844 5.761718-10.242188 9.601562-17.707031 9.601562h-64c-11.734375 0-21.335938-9.601562-21.335938-21.332031 0-4.269531 1.28125-8.535157 3.628907-11.734375l98.773437-148.265625-98.773437-148.269531c-2.347657-3.199219-3.628907-7.464844-3.628907-11.730469 0-11.734375 9.601563-21.335938 21.335938-21.335938h64c7.464843 0 13.867187 3.839844 17.707031 9.601563l106.664062 160c2.347657 3.199218 3.628907 7.464844 3.628907 11.734375zm0 0"></path></svg><img></span>-->
 <!--            </a>-->
-        </div>
         </div>
     </div>
     <div class="u-list u-repeater u-list-1">
 
-        <div th:each="p : ${podcasts}">
+        <div th:each="p : ${ted}">
             <div class="u-container-style u-list-item u-repeater-item u-list-item-1">
                 <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
                     <div class="u-video u-video-contain u-video-1">
                         <div class="embed-responsive embed-responsive-1">
-<!--                            <iframe height="300" style="position: absolute;top: 0;left: 0; max-width:700px;" class="embed-responsive-item" th:src="${{p.url}}" frameborder="0" allowfullscreen=""></iframe>-->
-                            <iframe  class="embed-responsive-item" width="100%" height="300" th:src="${{p.url}} +'/embed/v4'" style="background-color:transparent; display:block; padding: 0; max-width:700px;" frameborder="0" allowtransparency="allowtransparency" scrolling="no" title="Audioboom player" allow="autoplay"></iframe>
+                            <iframe style="position: absolute;top: 0;left: 0;width: 100%; height: 95%; background-color:transparent; display:block; padding: 0;" class="embed-responsive-item" th:src="'https://www.youtube.com/embed/' + ${{p.url}} + '?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0'" frameborder="0" allowfullscreen=""  allowtransparency="allowtransparency" scrolling="no" title="Audioboom player" allow="autoplay"></iframe>
                         </div>
                     </div>
                     <div>
                         <a class="u-text u-text-palette-1-base u-text-2" spellcheck="false" th:each="s : ${p.topic}" th:href="@{/topic/{num}(num=${s.id})}"th:text="' #' + ${{s.content}}">topics</a>
                     </div>
-<!--                    <p1 class="u-text u-text-palette-1-base u-text-2" spellcheck="false" th:each="t : ${p.topic}" th:text="'#' + ${{t.content}} + ' '">topics </p1>-->
                     <h5 class="u-text u-text-3" th:text="${{p.title}}">title</h5>
+                    <p class="u-text u-text-4" th:text="${{p.description}}">description<br>
                     </p>
                     <p class="u-text u-text-5" th:text="${{p.time}}">time </p>
-                    <a th:href="${{p.url}}" class="u-btn u-button-style u-btn-4" target="_Blank">read more<br>
+                    <a th:href="'https://www.youtube.com/watch?v=' + ${{p.url}}" class="u-btn u-button-style u-btn-4" target="_Blank">read more<br>
                     </a>
                 </div>
             </div>
@@ -52,6 +56,8 @@
 <style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
     background-color: #4c7397 !important
 }</style>
+
+
 
 
 <footer th:replace="layout/footer::foot"> </footer>

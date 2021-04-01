@@ -19,9 +19,13 @@ public class ForumPost implements java.io.Serializable{
 
     private String title;
 
-    private long usr_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usr_id", nullable=false)
+    private User p_usr;
 
-    private String topics;
+    @ManyToMany
+    @JoinTable(name = "Forumtopic", joinColumns = @JoinColumn(name = "forum_id"), inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private Set<Topic> f_topic = new HashSet<>();
 
     private String content;
 
@@ -52,18 +56,20 @@ public class ForumPost implements java.io.Serializable{
         this.title = title;
     }
 
-    public long getUsr_id(){return usr_id;}
-
-    public void setUsr_id(long usr_id) {
-        this.usr_id = usr_id;
+    public User getP_usr() {
+        return p_usr;
     }
 
-    public String getTopics(){
-        return topics;
+    public void setP_usr(User p_usr) {
+        this.p_usr = p_usr;
     }
 
-    public void setTopics(String topics){
-        this.topics = topics;
+    public Set<Topic> getTopics(){
+        return f_topic;
+    }
+
+    public void setTopics(Set<Topic> topics){
+        this.f_topic = topics;
     }
 
     public String getContent(){
@@ -106,4 +112,6 @@ public class ForumPost implements java.io.Serializable{
     public void setReport(int report) {
         this.report = report;
     }
+
+    public void addWatch(){this.watch++;}
 }

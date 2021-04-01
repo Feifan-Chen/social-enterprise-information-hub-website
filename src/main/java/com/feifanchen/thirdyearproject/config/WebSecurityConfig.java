@@ -9,8 +9,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -39,18 +43,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+        handler.setUseReferer(true);
+        return handler;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/events").authenticated()
-                .antMatchers("/forum").hasAuthority("ADMIN")
+                .antMatchers("/user/admin").hasAuthority("ADMIN")
+                .antMatchers("/forum/addComment").authenticated()
+                .antMatchers("/forum/addPost").authenticated()
+                .antMatchers("/forum/comment/report/**", "POST").authenticated()
+                .antMatchers("/forum/post/report/**", "POST").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                    .loginPage("/user/login")
                     .usernameParameter("user_name")
-                    .defaultSuccessUrl("/events")
+                    .successHandler(new CustomAuthenticationSuccessHandler())
+                    .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .logoutSuccessUrl("/").permitAll();
+        http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 
     @Override

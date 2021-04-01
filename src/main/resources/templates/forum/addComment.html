@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head th:replace="layout/head :: head(~{::title})">
+    <title>Homepage</title>
+</head>
+<body class="u-body">
+<header th:replace="layout/header::header"> </header>
+
+<section class="u-clearfix u-section-9" id="sec-87ba">
+    <div align="center">
+        <div class="u-clearfix u-sheet u-sheet-1">
+        <h3 class="u-text u-text-palette-1-dark-2 u-text-1">Write your Comment</h3>
+        <div class="u-form u-form-1">
+            <form  class="form-horizontal" role="form" th:action="@{saveComment(id=${comment.getPost().id}, add_by=${#authentication.getName()})}"  th:object="${comment}" method="post"  >
+                <input type="hidden" th:field="*{post}">
+
+                <div class="form-group">
+                    <label for="content" class="col-sm-2 control-label" >Content</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="content"   th:text= "${comment.content}" name = "content"></textarea>
+                        <p class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">errors</p>
+                    </div>
+                </div>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Save</button>
+                    <a href="JavaScript:history.back(-1)" class="btn btn-primary"><i class="fas fa-save" aria-hidden="true"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</section>
+
+<footer th:replace="layout/footer::foot"> </footer>
+</body>
+</html>

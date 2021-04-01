@@ -31,6 +31,12 @@ public class User implements java.io.Serializable {
     )
     private Set<Roles> roles = new HashSet<>();
 
+    @OneToMany(targetEntity=ForumComment.class, mappedBy="c_usr", fetch = FetchType.EAGER)
+    private Set<ForumComment> comment;
+
+    @OneToMany(targetEntity=ForumPost.class, mappedBy="p_usr", fetch = FetchType.EAGER)
+    private Set<ForumPost> post;
+
     public User(){
     }
 
@@ -56,5 +62,21 @@ public class User implements java.io.Serializable {
 
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
+    }
+
+    public Set<ForumPost> getPost() {
+        return post;
+    }
+
+    public void setPost(Set<ForumPost> post) {
+        this.post = post;
+    }
+
+    public Set<ForumComment> getComment() {
+        return comment;
+    }
+
+    public void setComment(Set<ForumComment> comment) {
+        this.comment = comment;
     }
 }
