@@ -35,7 +35,7 @@ public class YouTubeController {
     public String youtubeDemo(Model model) {
         //instantiate an empty address object
         YoutubeSearchCriteria youtubeSearchCriteria = new YoutubeSearchCriteria();
-        EventSearchCriteria search = new EventSearchCriteria();
+        YoutubeSearchCriteria search = new YoutubeSearchCriteria();
 
         //put the object in the model
         model.addAttribute("search", search);
@@ -88,19 +88,14 @@ public class YouTubeController {
         List<YouTubeVideo> videos = youTubeService.fetchVideosByQuery(strarray[1], 0);
 
         if (videos != null && videos.size() > 0) {
-            model.addAttribute("numberOfVideos", videos.size());
+            YouTubeVideo video = videos.get(0);
+            model.addAttribute("video", video);
         } else {
-            model.addAttribute("numberOfVideos", 0);
+            return "redirect:/user/admin";
         }
 
-        //put it in the model
-        model.addAttribute("videos", videos);
-
-        //add the criteria to the model as well
-        model.addAttribute("youtubeSearchCriteria", youtubeSearchCriteria);
-
-        //get out
-        return "/admin/showYoutubeResults";
+        model.addAttribute("topicModel", topicService.findAll());
+        return "/learningresources/youtubevideo";
     }
 
     @RequestMapping(value = "/youtubeDemoByChannel")

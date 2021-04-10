@@ -33,12 +33,12 @@ public class ForumPostServiceImpl implements ForumPostService {
         if(forumPostRepository.findAll(Sort.by(Sort.Direction.DESC,"watch")) == null)
             return null;
         Iterable<ForumPost> all = forumPostRepository.findAll(Sort.by(Sort.Direction.DESC,"watch"));
-        ArrayList<ForumPost> res = new ArrayList<>();
-        for(ForumPost f : all){
-            if(f.getReport() == 0)
-                res.add(f);
-        }
-        return res;
+//        ArrayList<ForumPost> res = new ArrayList<>();
+//        for(ForumPost f : all){
+//            if(f.getReport() == 0)
+//                res.add(f);
+//        }
+        return all;
     }
 
     @Override

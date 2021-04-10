@@ -81,12 +81,12 @@ public class ForumPost implements java.io.Serializable{
     }
 
     public Set<ForumComment>  getComments(){
-        Set<ForumComment> res = new HashSet<>();
-        for(ForumComment c : comments){
-            if(c.getReport() != 1)
-                res.add(c);
-        }
-        return res;
+//        Set<ForumComment> res = new HashSet<>();
+//        for(ForumComment c : comments){
+//            if(c.getReport() != 1)
+//                res.add(c);
+//        }
+        return comments;
     }
 
     public void setComments(Set<ForumComment>  comments){

@@ -41,6 +41,10 @@ public class ForumController {
         ForumPost post =  forumPostService.findOne(id);
         post.addWatch();
         forumPostService.save(post);
+        ForumComment comment = new ForumComment();
+        comment.setPost(forumPostService.findOne(id));
+        System.out.println(comment.getPost().getId());
+        model.addAttribute("comment", comment);
         model.addAttribute("post", post);
         model.addAttribute("comments", post.getComments());
         return"/forum/singlepost";
@@ -62,7 +66,7 @@ public class ForumController {
         return"/forum/addPost";
     }
 
-    @RequestMapping(value = "/post/report/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/post/report/{id}", method = RequestMethod.GET)
     public String reportPost(@PathVariable("id") long id, Model model, RedirectAttributes redirectAttributes){
         ForumPost post = forumPostService.reportPost(id);
         if(post == null){
@@ -72,7 +76,7 @@ public class ForumController {
         return "redirect:/forum";
     }
 
-    @RequestMapping(value = "/comment/report/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/comment/report/{id}", method = RequestMethod.GET)
     public String reportComment(@PathVariable("id") long id, @RequestParam("postid") long postid, Model model, RedirectAttributes redirectAttributes) {
         ForumComment comment = forumCommentService.reportComment(id);
         comment.setReport(1);
@@ -86,7 +90,7 @@ public class ForumController {
         return "redirect:/forum/{id}";
     }
 
-    @RequestMapping(path = "/{id}", method = { RequestMethod.DELETE, RequestMethod.POST })
+    @RequestMapping(path = "post/delete/{id}", method = { RequestMethod.DELETE, RequestMethod.POST })
     public String deletePost(@PathVariable("id") long id, RedirectAttributes redirectAttrs, Model model) {
 
         ForumPost u = forumPostService.findOne(id);
@@ -100,7 +104,7 @@ public class ForumController {
         return "redirect:/user/admin";
     }
 
-    @RequestMapping(path = "/comment/{id}", method = { RequestMethod.DELETE, RequestMethod.POST })
+    @RequestMapping(path = "/comment/delete/{id}", method = { RequestMethod.DELETE, RequestMethod.POST })
     public String deleteComment(@PathVariable("id") long id, RedirectAttributes redirectAttrs, Model model) {
             forumCommentService.deleteById(id);
         redirectAttrs.addFlashAttribute("ok_message", "Events deleted.");

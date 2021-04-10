@@ -225,11 +225,11 @@
                                         <a th:href="@{/forum/showSingle(id=${p.id})}">Show</a>
                                     </td>
                                     <td class="u-table-cell u-table-cell-16">
-<!--                                        <form th:action="@{/forum/{num}(num=${p.id})}" th:method="delete">-->
-                                            <a th:href="@{/forum/{num}(num=${p.id})}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</a>
-<!--                                        </form>-->
-<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=1)}" th:method="post">-->
+                                        <form th:action="@{/forum/post/delete/{num}(num=${p.id})}" th:method="delete">
+                                            <button class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
                                             <a th:href="@{/forum/pass(id=${p.id}, type=1)}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Keep</a>
+                                        </form>
+<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=1)}" th:method="post">-->
 <!--                                        </form>-->
                                     </td>
                                 </tr>
@@ -259,11 +259,12 @@
                                         <a th:href="@{/forum/showReportSingle(id=${p.id})}">Show</a>
                                     </td>
                                     <td class="u-table-cell u-table-cell-16">
-<!--                                        <form th:action="@{/forum/comment/{num}(num=${p.id})}" th:method="delete">-->
-                                            <a  th:href="@{/forum/comment/{num}(num=${p.id})}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</a>
-<!--                                        </form>-->
-<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=2)}" th:method="post">-->
+                                        <form th:action="@{/forum/comment/delete/{num}(num=${p.id})}" th:method="delete">
+                                            <button class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
                                             <a th:href="@{/forum/pass(id=${p.id}, type=2)}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Keep</a>
+                                        </form>
+<!--                                        <form th:action="@{/forum/pass(id=${p.id}, type=2)}" th:method="post">-->
+<!--                                            <a th:href="@{/forum/pass(id=${p.id}, type=2)}" class="btn btn-danger"><i class="fas fa-trash" aria-hidden="true"></i> Keep</a>-->
 <!--                                        </form>-->
                                     </td>
                                 </tr>

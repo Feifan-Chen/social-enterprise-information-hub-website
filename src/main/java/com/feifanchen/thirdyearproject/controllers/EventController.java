@@ -5,6 +5,7 @@ import com.feifanchen.thirdyearproject.dao.TopicService;
 import com.feifanchen.thirdyearproject.entities.Event;
 import com.feifanchen.thirdyearproject.entities.EventSearchCriteria;
 import com.feifanchen.thirdyearproject.entities.Podcast;
+import com.feifanchen.thirdyearproject.entities.YoutubeSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class EventController {
     @GetMapping(value = "/eventSearch")
     public String youtubeDemo(Model model) {
         //instantiate an empty address object
-        EventSearchCriteria search = new EventSearchCriteria();
+        YoutubeSearchCriteria search = new YoutubeSearchCriteria();
 
         //put the object in the model
         model.addAttribute("search", search);
@@ -46,8 +47,8 @@ public class EventController {
     }
 
     @PostMapping(value = "/eventSearch")
-    public String urlSubmit(@Valid EventSearchCriteria search,  Model model){
-        String[] array1 = search.getUrl().split("\\?");
+    public String urlSubmit(@Valid YoutubeSearchCriteria search, Model model){
+        String[] array1 = search.getQueryTerm().split("\\?");
         System.out.println(array1[0]);
         String s = StringUtils.substring(array1[0], array1[0].length()-12,array1[0].length());
 

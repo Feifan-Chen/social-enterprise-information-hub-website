@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import org.jsoup.Jsoup;
 
 @Service
 @Transactional
@@ -127,11 +128,10 @@ public class YouTubeServiceImpl implements YouTubeService {
             if (searchResultList != null) {
                 for (SearchResult result : searchResultList) {
                     YouTubeVideo video = new YouTubeVideo();
-                    video.setTitle(result.getSnippet().getTitle());
+                    video.setTitle(Jsoup.parse(result.getSnippet().getTitle()).text());
                     video.setUrl(buildVideoUrl(result.getId().getVideoId()));
                     video.setThumbnail(result.getSnippet().getThumbnails().getDefault().getUrl());
                     video.setDescription(result.getSnippet().getDescription());
-
                     //parse the date
                     DateTime dateTime = result.getSnippet().getPublishedAt();
                     Date date = new Date(dateTime.getValue());

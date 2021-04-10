@@ -9,120 +9,193 @@
 </head>
 <body class="u-body">
 <header th:replace="layout/header::header"> </header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    var youtube = "Find a youtube video resource, would like to discover more?";
+    var podcast = "Find a podcast resource, would like to discover more?";
+    var event = "Find a event resource, would like to discover more?";
+    var error = "Please enter valid search term!";
+    var you = "youtube";
+    var pdc = "audioboom";
+    var et = "eventbrite";
+    window.onload = function(){
+        document.getElementById("show").onclick = function(){
+            var input = document.getElementById("input").value;
+            var str = JSON.stringify(input);
+            console.log(str);
+            if(str.indexOf(you) != -1){
+                document.getElementById("show").style.display = "none";
+                $("#url_str").append(youtube);
+                document.getElementById("ytb_url").value = str;
+                console.log("init");
+                document.getElementById("url_group").style.display = "block";
+                document.getElementById("youtube_url").style.display = "block";
+            }else if(str.indexOf(pdc) != -1){
+                document.getElementById("show").style.display = "none";
+                $("#url_str").append(podcast);
+                document.getElementById("pdc_url").value = str;
+                console.log("init");
+                document.getElementById("url_group").style.display = "block";
+                document.getElementById("podcast_url").style.display = "block";
+            }else if(str.indexOf(et) != -1){
+                document.getElementById("show").style.display = "none";
+                $("#url_str").append(event);
+                document.getElementById("et_url").value = str;
+                console.log("init");
+                document.getElementById("url_group").style.display = "block";
+                document.getElementById("event_url").style.display = "block";
+            }else{
+                document.getElementById("show").style.display = "none";
+                $("#url_str").append(error);
+                document.getElementById("url_group").style.display = "block";
+            }
+            console.log("last");
+        }
 
-<section class="u-align-center u-clearfix u-section-13" id="sec-7832">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-expanded-width u-tab-links-align-center u-tabs u-tabs-1">
-            <ul class="u-grey-5 u-spacing-15 u-tab-list u-unstyled u-tab-list-1" role="tablist">
-                <li class="u-tab-item" role="presentation">
-                    <a class="active u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-1" id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">New Events</a>
-                </li>
-                <li class="u-tab-item" role="presentation">
-                    <a class="u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-2" id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">New TED/Podcast</a>
-                </li>
-                <li class="u-tab-item" role="presentation">
-                    <a class="u-active-white u-border-3 u-border-active-palette-2-base u-border-no-bottom u-border-no-left u-border-no-right u-button-style u-tab-link u-text-active-black u-text-body-color u-text-hover-grey-75 u-tab-link-3" id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">New Youtube videos</a>
-                </li>
-            </ul>
-            <div class="u-tab-content">
-                <div class="u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel" aria-labelledby="link-tab-0da5">
-                    <div class="u-container-layout u-container-layout-1">
-                        <div align="center">
-                        <form id="employeForm" th:action="@{/events/eventSearch}" th:object="${search}" method="post">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <i th:if="${#fields.hasErrors('url')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                    <input type="text" class="form-control" maxlength="200" th:field="*{url}" placeholder="For example: https://www.eventbrite.co.uk/e/iwd2021-putting-the-profit-back-in-non-profit-tickets-137311389061?aff=ebdsoporgprofile"/>
-                                    <span th:if="${#fields.hasErrors('url')}" class="help-block" th:errors="*{url}"></span>
-                                </div>
+        document.getElementById("cancel").onclick = function(){
+            document.getElementById("url_group").style.display = "none";
+            document.getElementById("youtube_url").style.display = "none";
+            document.getElementById("podcast_url").style.display = "none";
+            document.getElementById("event_url").style.display = "none";
+            $("#url_str").html("");
+            document.getElementById("input").value = null;
+            document.getElementById("ytb_url").style.display = "none";
+            document.getElementById("show").style.display = "block";
+        }
 
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Search by URL</button>
-                            </div>
-                        </form>
+        document.getElementById("query").onclick = function(){
+            var query = document.getElementById("keyword").value;
+            query = JSON.stringify(query);
+            console.log(query.length);
+            if(query.length != 2){
+                $("#instruction").append("Search for Ted or Youtube videos?");
+                document.getElementById("query").style.display = "none";
+                document.getElementById("yb_query").value = query;
+                document.getElementById("td_query").value = query;
+                document.getElementById("query_group").style.display = "block";
+                document.getElementById("ted_query").style.display = "block";
+                document.getElementById("ytb_query").style.display = "block";
+            }else{
+                document.getElementById("query").style.display = "none";
+                $("#instruction").append(error);
+                document.getElementById("query_group").style.display = "block";
+            }
+        }
+        document.getElementById("cancel_2").onclick = function(){
+            document.getElementById("query").style.display = "block";
+            $("#instruction").html("");
+            document.getElementById("keyword").value = null;
+            document.getElementById("query_group").style.display = "none";
+            document.getElementById("ted_query").style.display = "none";
+            document.getElementById("ytb_query").style.display = "none";
+        }
+    }
+</script>
+
+<section class="u-clearfix u-section-15" id="sec-70fa">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Resources AUTO Generator</h2>
+        <div class="u-expanded-width u-list u-repeater u-list-1">
+            <div class="u-align-center u-border-2 u-border-custom-color-9 u-container-style u-list-item u-repeater-item u-shape-rectangle">
+                <div class="u-container-layout u-similar-container u-container-layout-1">
+                    <h3 class="u-text u-text-palette-1-dark-2 u-text-2">Search By URL</h3>
+                    <br>
+                    <div>
+                        <input id="input" type="text" class="form-control" maxlength="200" placeholder="For example: https://www.eventbrite.co.uk/e/iwd2021-putting-the-profit-back-in-non-profit-tickets-137311389061?aff=ebdsoporgprofile"/>
                     </div>
-                    </div>
-                </div>
-                <div class="u-align-left u-container-style u-tab-pane u-white u-tab-pane-2" id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
-                    <div class="u-container-layout u-valign-middle u-container-layout-2">
-                        <div align="center">
-                        <form id="ted" th:action="@{/tedtalk/tedDemo}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
-                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: social enterprise"/>
-                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
-                                    <!--                                            </div>-->
-                                </div>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">TED Search by query</button>
-                            </div>
-                            </div>
-                        </form>
+                    <button id="show"  class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-1">Search by URL&nbsp;<span class="u-icon"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg><img></span>
+                    </button>
+                    <div style="display: none" id="url_group" class="u-container-style u-group u-palette-1-light-3 u-group-1">
+                        <div class="u-container-layout u-container-layout-2">
                             <br>
-                        <form id="podcast" th:action="@{/learningresources/search}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
-                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                    <input type="text" class="form-control" maxlength="200" th:field="*{queryTerm}" placeholder="For example: https://audioboom.com/posts/7434839-episode-2-career-pathways-for-social-change"/>
-                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
-                                    <!--                                            </div>-->
-                                </div>
+                            <h5 id="url_str" class="u-text u-text-palette-1-dark-2 u-text-3"></h5>
 
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Search by AudioBoom URL</button>
+                            <form style="display: none" id="podcast_url" th:action="@{/learningresources/search}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <input style="display: none" id="pdc_url" type="text" class="form-control" maxlength="200" th:field="*{queryTerm}" placeholder="For example: https://audioboom.com/posts/7434839-episode-2-career-pathways-for-social-change"/>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit"class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">Start to extract information</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+
+
+                            <form style="display: none" id="event_url" th:action="@{/events/eventSearch}" th:object="${search}" method="post">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <input style="display: none" id="et_url" type="text" class="form-control" maxlength="200" th:field="*{queryTerm}" placeholder="For example: https://www.eventbrite.co.uk/e/iwd2021-putting-the-profit-back-in-non-profit-tickets-137311389061?aff=ebdsoporgprofile"/>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit"class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">Start to extract information</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form style="display: none" id="youtube_url" th:action="@{/youtubeadmin/youtubeDemoByURL}" th:object="${youtubeSearchCriteria}" method="post">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <input style="display: none" id="ytb_url" type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: https://www.youtube.com/watch?v=uOvK8roYVUU"/>
+                                    </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">Start to extract information</button>
+                                </div>
+                                </div>
+                            </form>
+                            <button id="cancel" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">New Search</button>
+
+                        </div>
                     </div>
                 </div>
-                <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel" aria-labelledby="link-tab-2917">
-                    <div class="u-container-layout u-valign-top u-container-layout-3">
-                        <div align="center">
-                        <form id="employeeForm" th:action="@{/youtubeadmin/youtubeDemo}" th:object="${youtubeSearchCriteria}" method="post">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
-                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: women leadership"/>
-                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
-                                    <!--                                            </div>-->
-                                </div>
-
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Search by query</button>
-                            </div>
-                        </form>
-                        <br>
-                        <form id="url" th:action="@{/youtubeadmin/youtubeDemoByURL}" th:object="${youtubeSearchCriteria}" method="post">
-                            <div class="form-body">
-
-                                <div class="form-group">
-                                    <!--                                            <div th:classappend="${#fields.hasErrors('queryTerm')} ? 'input-icon right' : ''">-->
-                                    <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
-                                    <input type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: https://www.youtube.com/watch?v=uOvK8roYVUU"/>
-                                    <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
-                                    <!--                                            </div>-->
-                                </div>
-
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Search by URL</button>
-                            </div>
-                        </form>
-
-                        <br>
-                        <br>
-                        <a class="btn btn-primary" th:href="@{/youtubeadmin/youtubeDemoByChannel}">Discover all Flourish videos</a>
-
+            </div>
+            <div class="u-align-center u-border-2 u-border-custom-color-9 u-container-style u-list-item u-repeater-item u-shape-rectangle">
+                <div class="u-container-layout u-similar-container u-container-layout-3">
+                    <h3 class="u-text u-text-palette-1-dark-2 u-text-4">Search By Query</h3>
+                    <br>
+                    <div>
+                        <input id="keyword" type="text" class="form-control" maxlength="200" placeholder="For example: women leadership"/>
                     </div>
+                    <button id="query" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-3">Search by keyword&nbsp;&nbsp;<span class="u-icon"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg><img></span>
+                    </button>
+                    <div id="query_group"  style="display: none" class="u-container-style u-group u-palette-1-light-3 u-group-2">
+                        <div class="u-container-layout u-container-layout-4">
+                            <h5 id="instruction" class="u-text u-text-palette-1-dark-2 u-text-5"></h5>
+                            <form  style="display: none" id="ted_query" th:action="@{/tedtalk/tedDemo}" th:object="${youtubeSearchCriteria}" method="post"  class="form-horizontal">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                        <input style="display: none" id="td_query" type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: social enterprise"/>
+                                        <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">TED Search</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form style="display: none" id="ytb_query" th:action="@{/youtubeadmin/youtubeDemo}" th:object="${youtubeSearchCriteria}" method="post">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <i th:if="${#fields.hasErrors('queryTerm')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid search term" data-container="body"></i>
+                                        <input style="display: none" id="yb_query" type="text" class="form-control" maxlength="64" th:field="*{queryTerm}" placeholder="For example: women leadership"/>
+                                        <span th:if="${#fields.hasErrors('queryTerm')}" class="help-block" th:errors="*{queryTerm}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">Youtube Search</button>
+                                </div>
+                            </form>
+                            <button id="cancel_2" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-2">New Search</button>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="u-align-center u-border-2 u-border-custom-color-9 u-container-style u-list-item u-repeater-item u-shape-rectangle">
+                <div class="u-container-layout u-similar-container u-container-layout-5">
+                    <h3 class="u-text u-text-palette-1-dark-2 u-text-6">Discover more about Flourish</h3>
+                    <a th:href="@{/youtubeadmin/youtubeDemoByChannel}" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius-2 u-btn-5">Flourish Youtube Channel<span class="u-icon"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg><img></span>
+                    </a>
                 </div>
             </div>
         </div>
