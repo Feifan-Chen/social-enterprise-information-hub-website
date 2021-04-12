@@ -28,12 +28,13 @@
             <div class="u-container-layout u-similar-container u-container-layout-2">
                 <p class="u-align-right u-text u-text-grey-60 u-text-2" spellcheck="false" th:text="${{t.create_time}}">date</p>
                 <h3 class="u-align-left u-text u-text-palette-1-dark-1 u-text-3" th:text="${{t.title}}"> title <br></h3>
-                <p class="u-align-left u-text u-text-grey-60 u-text-9" spellcheck="false" th:text="${{t.watch}} + ' watched'">watch times</p>
+                <div>
+                    <a class="u-text u-text-palette-1-dark-1 u-text-5" spellcheck="false" th:each="s : ${t.topics}" th:href="@{/topic/{num}(num=${s.id})}"th:text="' #' + ${{s.content}}">topics</a>
+                </div>
+                <p class="u-align-left u-text u-text-grey-60 u-text-4" spellcheck="false" th:text="${{t.watch}} + ' watched'">watch times</p>
                 <p class="u-text u-text-5" spellcheck="false" th:text="${{t.content}}">content<br>
                 </p>
-                <div>
-                    <a class="u-text u-text-5" spellcheck="false" th:each="s : ${t.topics}" th:href="@{/topic/{num}(num=${s.id})}"th:text="' #' + ${{s.content}}">topics</a>
-                </div>
+
             </div>
         </div>
         </div>

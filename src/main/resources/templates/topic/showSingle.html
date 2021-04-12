@@ -7,72 +7,239 @@
 <head th:replace="layout/head :: head(~{::title})">
     <title>Events</title>
 </head>
+<style>
+    body {
+        margin: 0;
+        font-family: "Lato", sans-serif;
+    }
+
+    .sidebar {
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .sidebar a {
+        display: block;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
+    }
+
+    .sidebar a.active {
+        background-color: #25668e;
+        color: white;
+    }
+
+    .sidebar a:hover:not(.active) {
+        background-color: #bfbfbf;
+        color: white;
+    }
+
+    div.content {
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 100%;
+    }
+
+    @media screen and (max-width: 700px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+        .sidebar a {float: left;}
+        div.content {margin-left: 0;}
+    }
+
+    @media screen and (max-width: 400px) {
+        .sidebar a {
+            text-align: center;
+            float: none;
+        }
+    }
+</style>
 <body class="u-body">
 <header th:replace="layout/header::header"> </header>
+<section class="u-align-center u-clearfix u-section-17" id="sec-cf99">
+<div class="sidebar">
+    <p style="font-weight: bold;">All topics </p>
+    <div th:each="a : ${topics}">
+        <div th:if="${a.id} eq ${topic.id}">
+            <a class="active" th:href="@{/topic/{num}(num=${a.id})}" th:text="${a.content}"></a>
+        </div>
+        <div th:if="${a.id} ne ${topic.id}">
+             <a th:href="@{/topic/{num}(num=${a.id})}" th:text="${a.content}"></a>
+        </div>
+    </div>
+    <a style="font-weight: bold;" href="JavaScript:history.back(-1)">Back</a>
+</div>
 
-<section class="u-align-center u-clearfix u-section-11" id="sec-f7ab">
+<div class="content">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <div align="center">
-        <h2 class="u-text u-text-palette-1-dark-1 u-text-1"><span th:text="${topic.content}"></span></h2>
-        <a class="u-text u-text-default u-text-2" href="JavaScript:history.back(-1)">BACK</a>
-        <div class="u-border-2 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
-
-        <h2 class="u-text u-text-default u-text-palette-2-dark-1 u-text-1">Events</h2>
+        <h2 class="u-text u-text-palette-5-dark-2 u-text-1"><span th:text="${topic.content}"></span></h2>
+        <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+        <div th:if="${events.size()} ne 0">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-6">Events</h2>
         <div class="u-list u-repeater u-list-1">
             <div th:each="t : ${events}">
-            <div class="u-align-left u-container-style u-list-item u-palette-3-light-3 u-repeater-item u-list-item-1" data-href="" target="_Blank" th:attr="data-href=${{t.url}}">
-                <div class="u-container-layout u-similar-container u-container-layout-1">
-                    <h4 class="u-text u-text-default u-text-2" th:text="${t.name}"></h4>
-                    <p class="u-text u-text-3" th:text="${t.description}">description</p>
+                <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-2" data-href="" target="_Blank" th:attr="data-href=${{t.url}}">
+                    <div class="u-container-layout u-similar-container u-container-layout-2">
+                    <img th:src="${{t.thumbnail}}" alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="1544" data-image-height="464">
+                    <h4 class="u-text u-text-palette-1-dark-1 u-text-3" th:text="${t.name}">name</h4>
                 </div>
             </div>
             </div>
         </div>
-        <h2 class="u-text u-text-default u-text-palette-1-dark-1 u-text-10">Learning Resources</h2>
+        </div>
+        <div th:if="${learning.size() + podcasts.size()} ne 0">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-7">Learning Resources</h2>
         <div class="u-list u-repeater u-list-2">
-                <div th:each="t : ${youtubes}">
-                    <div class="u-align-left u-container-style u-list-item u-palette-4-light-2 u-repeater-item u-list-item-5" data-href="" target="_Blank"  th:attr="data-href='https://www.youtube.com/watch?v=' + ${{t.url}}">
-                        <div class="u-container-layout u-similar-container u-container-layout-1">
-                            <h4 class="u-text u-text-default u-text-2" th:text="${t.title}"></h4>
-                            <p class="u-text u-text-3" th:text="${t.description}">description</p>
+            <div th:each="p : ${learning}">
+            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle" data-href="" target="_Blank"  th:attr="data-href='https://www.youtube.com/watch?v=' + ${p}">
+                <div class="u-container-layout u-similar-container u-container-layout-4">
+                    <div class="u-video u-video-contain u-video-1">
+                        <div class="embed-responsive embed-responsive-1">
+                            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" th:src="'https://www.youtube.com/embed/' + ${p} + '?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0'" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        </div>
+        <div class="u-list u-repeater u-list-2">
+            <div th:each="p : ${podcasts}">
+                <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle" data-href="" target="_Blank" th:attr="data-href=${{p.url}}">
+                    <div class="u-container-layout u-similar-container u-container-layout-4">
+                        <div class="u-video u-video-contain u-video-1">
+                            <div class="embed-responsive embed-responsive-1">
+                            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item"  th:src="${p.url} +'/embed/v4'" frameborder="0" allowfullscreen=""></iframe>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
-        <div class="u-list u-repeater u-list-2">
-            <div th:each="t : ${podcasts}">
-                <div class="u-align-left u-container-style u-list-item u-palette-4-light-2 u-repeater-item u-list-item-5" data-href="" target="_Blank" th:attr="data-href=${{t.url}}">
-                    <div class="u-container-layout u-similar-container u-container-layout-1">
-                        <h4 class="u-text u-text-default u-text-2" th:text="${t.title}"></h4>
-                        <p class="u-text u-text-3" th:text="${t.description}">description</p>
+        </div>
+        </div>
+        <div th:if="${posts.size()} ne 0">
+        <h2 class="u-text u-text-palette-1-dark-1 u-text-7">Forum</h2>
+        <div class="u-accordion u-faq u-accordion-1">
+            <div th:each="t : ${posts}">
+            <div class="u-accordion-item">
+                <a class="active u-accordion-link u-button-style u-custom-color-4 u-text-hover-palette-1-dark-1 u-accordion-link-1" id="link-accordion-838c" aria-controls="accordion-838c" aria-selected="true">
+                    <span class="u-accordion-link-text"th:text="${{t.title}}">Question 1</span>
+                </a>
+                <div class="u-accordion-active u-accordion-pane u-container-style u-shape-rectangle u-accordion-pane-1" id="accordion-838c" aria-labelledby="link-accordion-838c">
+                    <div class="u-container-layout u-container-layout-7">
+                        <div class="u-clearfix u-rich-text u-text">
+                            <p th:text="${{t.content}}"></p>
+                            <a class="u-text u-text-palette-1-base u-text-1" th:href="'/forum/'+ ${{t.id}}">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <h2 class="u-text u-text-default u-text-palette-5-dark-2 u-text-15">Forum Related</h2>
-        <div class="u-list u-repeater u-list-3">
-            <div th:each="t : ${posts}">
-            <div class="u-align-left u-container-style u-grey-10 u-list-item u-repeater-item u-list-item-7" data-href="" target="_Blank" th:attr="data-href='/forum/'+ ${{t.id}}">
-                <div class="u-container-layout u-similar-container u-container-layout-7">
-                    <h4 class="u-text u-text-default u-text-16" th:text="${{t.title}}">Sample Headline</h4>
-                    <p class="u-text u-text-17" th:text="${{t.content}}">content</p>
-                </div>
-            </div>
             </div>
         </div>
+        </div>
     </div>
-    </div>
+</div>
 </section>
-
-
+<!--<section class="u-align-center u-clearfix u-section-17" id="sec-cf99">-->
+<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--        <h2 class="u-text u-text-palette-5-dark-2 u-text-1">Sample Headline</h2>-->
+<!--        <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>-->
+<!--        <h2 class="u-text u-text-palette-2-dark-1 u-text-2">Sample Headline</h2>-->
+<!--        <div class="u-list u-repeater u-list-1">-->
+<!--            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle" data-href="https://www.nicepage.com/one-page-template">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-1">-->
+<!--                    <img src="images/Screenshot2021-03-02at11.19.54.png" alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="1544" data-image-height="464">-->
+<!--                    <h4 class="u-text u-text-palette-1-dark-1 u-text-3">Sample Headline</h4>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-2" data-href="https://nicepage.com">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-2">-->
+<!--                    <img src="images/Screenshot2021-03-02at11.19.54.png" alt="" class="u-expanded-width u-image u-image-default u-image-2" data-image-width="1544" data-image-height="464">-->
+<!--                    <h4 class="u-text u-text-palette-1-dark-1 u-text-4">Sample Headline</h4>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-3">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-3">-->
+<!--                    <img src="images/Screenshot2021-03-02at11.19.54.png" alt="" class="u-expanded-width u-image u-image-default u-image-3" data-image-width="1544" data-image-height="464">-->
+<!--                    <h4 class="u-text u-text-palette-1-dark-1 u-text-5">Sample Headline</h4>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <h2 class="u-text u-text-palette-1-dark-1 u-text-6">Sample Headline</h2>-->
+<!--        <div class="u-list u-repeater u-list-2">-->
+<!--            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle" data-href="https://www.nicepage.com/one-page-template">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-4">-->
+<!--                    <div class="u-video u-video-contain u-video-1">-->
+<!--                        <div class="embed-responsive embed-responsive-1">-->
+<!--                            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/B9YKnNtFqds?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0" frameborder="0" allowfullscreen=""></iframe>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-align-left u-container-style u-list-item u-repeater-item u-shape-rectangle">-->
+<!--                <div class="u-container-layout u-similar-container u-container-layout-5">-->
+<!--                    <div class="u-video u-video-contain u-video-2">-->
+<!--                        <div class="embed-responsive embed-responsive-2">-->
+<!--                            <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/B9YKnNtFqds?mute=0&amp;showinfo=0&amp;controls=0&amp;start=0" frameborder="0" allowfullscreen=""></iframe>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <h2 class="u-text u-text-palette-5-dark-2 u-text-7">Sample Headline</h2>-->
+<!--        <div class="u-accordion u-faq u-accordion-1">-->
+<!--            <div class="u-accordion-item">-->
+<!--                <a class="active u-accordion-link u-button-style u-custom-color-4 u-text-hover-palette-1-dark-1 u-accordion-link-1" id="link-accordion-838c" aria-controls="accordion-838c" aria-selected="true">-->
+<!--                    <span class="u-accordion-link-text">Question 1</span>-->
+<!--                </a>-->
+<!--                <div class="u-accordion-active u-accordion-pane u-container-style u-shape-rectangle u-accordion-pane-1" id="accordion-838c" aria-labelledby="link-accordion-838c">-->
+<!--                    <div class="u-container-layout u-container-layout-6">-->
+<!--                        <div class="u-clearfix u-rich-text u-text">-->
+<!--                            <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-accordion-item">-->
+<!--                <a class="u-accordion-link u-button-style u-custom-color-4 u-text-hover-palette-1-dark-1 u-accordion-link-2" id="link-accordion-b41b" aria-controls="accordion-b41b" aria-selected="false">-->
+<!--                    <span class="u-accordion-link-text">Question 2</span>-->
+<!--                </a>-->
+<!--                <div class="u-accordion-pane u-container-style u-shape-rectangle u-accordion-pane-2" id="accordion-b41b" aria-labelledby="link-accordion-b41b">-->
+<!--                    <div class="u-container-layout u-container-layout-7">-->
+<!--                        <div class="u-clearfix u-rich-text u-text">-->
+<!--                            <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-accordion-item">-->
+<!--                <a class="u-accordion-link u-button-style u-custom-color-4 u-text-hover-palette-1-dark-1 u-accordion-link-3" id="link-accordion-160e" aria-controls="accordion-160e">-->
+<!--                    <span class="u-accordion-link-text">Question 3</span>-->
+<!--                </a>-->
+<!--                <div class="u-accordion-pane u-container-style u-shape-rectangle u-accordion-pane-3" id="accordion-160e" aria-labelledby="link-accordion-160e">-->
+<!--                    <div class="u-container-layout u-container-layout-8">-->
+<!--                        <div class="u-clearfix u-rich-text u-text">-->
+<!--                            <p>Answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id suscipit ex. Suspendisse rhoncus laoreet purus quis elementum. Phasellus sed efficitur dolor, et ultricies sapien. Quisque fringilla sit amet dolor commodo efficitur. Aliquam et sem odio. In ullamcorper nisi nunc, et molestie ipsum iaculis sit amet.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 <style class="u-overlap-style" style="">.u-overlap:not(.u-sticky-scroll) .u-header {
     background-color: #4c7397 !important
 }</style>
 
-
 <footer th:replace="layout/footer::foot"> </footer>
-
 
 </body>
 </html>

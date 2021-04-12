@@ -1,7 +1,6 @@
 package com.feifanchen.thirdyearproject.controllers;
 
-import com.feifanchen.thirdyearproject.entities.ForumPost;
-import com.feifanchen.thirdyearproject.entities.Topic;
+import com.feifanchen.thirdyearproject.entities.*;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(value = "/topic",  produces = {MediaType.TEXT_HTML_VALUE})
@@ -33,10 +34,20 @@ public class TopicController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showTopic(@PathVariable("id") long id, Model model){
         Topic topic = topicService.findById(id);
+        ArrayList<String> learning = new ArrayList<>();
+        for(YouTubeVideo y : topic.getYoutube()){
+            learning.add(y.getUrl());
+        }
+        for(Tedtalk y : topic.getTed()){
+            learning.add(y.getUrl());
+        }
         model.addAttribute("topic", topic);
+        model.addAttribute("topics", topicService.findAll());
         model.addAttribute("events", topic.getEvent());
         model.addAttribute("podcasts", topic.getPodcasts());
         model.addAttribute("youtubes", topic.getYoutube());
+        model.addAttribute("teds", topic.getTed());
+        model.addAttribute("learning", learning);
         model.addAttribute("posts", topic.getPosts());
         return "topic/showSingle";
     }
